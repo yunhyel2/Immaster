@@ -1,0 +1,97 @@
+/* Reset CSS
+* --------------------------------------- */
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,
+form,fieldset,input,textarea,p,blockquote,th,td {
+    padding: 0;
+    margin: 0;
+}
+a{
+    text-decoration:none;
+}
+table {
+    border-spacing: 0;
+}
+fieldset,img {
+    border: 0;
+}
+address,caption,cite,code,dfn,em,strong,th,var {
+    font-weight: normal;
+    font-style: normal;
+}
+strong{
+    font-weight: bold;
+}
+ol,ul {
+    list-style: none;
+    margin:0;
+    padding:0;
+}
+caption,th {
+    text-align: left;
+}
+h1,h2,h3,h4,h5,h6 {
+    font-weight: normal;
+    font-size: 100%;
+    margin:0;
+    padding:0;
+    color:#444;
+}
+q:before,q:after {
+    content:'';
+}
+abbr,acronym { border: 0;
+}
+.hidden{
+    display:none;
+}
+/* Reset CSS end
+* --------------------------------------- */
+
+/*웹폰트(kopub체) */
+
+@font-face {
+    font-family: 'kopub';
+    src:url('../font/KoPubDotumMedium.eot') format('embedded-opentype'),
+        url("../font/KoPubDotumMedium.woff") format('woff');
+}
+
+@font-face {
+    font-family: 'kopublight';
+    src:url('../font/KoPubDotumLight.eot') format('embedded-opentype'),
+        url("../font/KoPubDotumLight.woff") format('woff');
+}
+
+@font-face {
+    font-family: 'kopubbold';
+    src:url('../font/KoPubDotumBold.eot') format('embedded-opentype'),
+        url("../font/KoPubDotumBold.woff") format('woff');
+}
+
+//미디어쿼리
+$breakpoints: (
+  'big' : (min-width: 851px),
+  'small': (max-width: 850px),
+  'too-small': (max-width: 500px),
+);
+/// 반응형 매니저
+/// @access public
+/// @param {String} $breakpoint - 브레이크포인트
+/// @requires $breakpoints
+@mixin respond-to($breakpoint) {
+  $raw-query: map-get($breakpoints, $breakpoint);
+
+  @if $raw-query {
+    $query: if(
+      type-of($raw-query) == 'string',
+      unquote($raw-query),
+      inspect($raw-query)
+    );
+
+    @media #{$query} {
+      @content;
+    }
+  } @else {
+    @error 'No value found for `#{$breakpoint}`. '
+         + 'Please make sure it is defined in `$breakpoints` map.';
+  }
+}

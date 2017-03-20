@@ -1,0 +1,38 @@
+
+div.box{
+    padding:10px 5px;
+    p.sub_title{
+        font-weight:bold;
+        font-size:13px;
+        letter-spacing:-1px;
+        margin:10px 0;
+    }
+    p{
+        font-size:12px;
+        padding-top:4px;
+        padding-bottom:4px;
+        line-height:1.5;
+        text-indent:5px;
+        &.content{
+            padding-left:15px;
+        }
+    }
+    ul{
+        padding-left:15px;
+        font-size:12px;
+        line-height:1.5;
+        li{
+            margin:3px 0;
+        }
+    }
+    div.contact{
+        width:250px;
+        padding:20px 0;
+        margin:5px 0;
+        background:#eee;
+        p{
+            padding:2px 0;
+            text-indent:20px;
+        }
+    }
+}
