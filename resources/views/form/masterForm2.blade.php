@@ -10,8 +10,7 @@
                 <li><a href="#">등록하기</a></li>
             </ul>
         </nav>
-        <form class="validate master-form" name="master-form" method="POST" action="{{ url('/master-agree') }}">
-            {{ csrf_field() }}
+        <form class="validate master-form" id="one-step">
             <h2>개인신상</h2>
             <div class="group">
                 <div class="form-group join">
@@ -82,9 +81,11 @@
                     <span class="example">예시) 디퓨저, 디제잉, 포토샵, 중국어회화</span>
                 </div>
                 <div class="add-remove">
-                    <p class="notice">추가 버튼을 누르면 복수의 카테고리 정보를 입력할 수 있습니다.(최대 3개)</p>
-                    <button class="add">추가</button>
-                    <button class="del">삭제</button>
+                    <p class="notice">추가 버튼을 누르면 복수의 카테고리 정보를 입력할 수 있습니다. (최대 3개)</p>
+                    <div class="add-del">
+                        <a class="add" href="#"><i class="fa fa-plus" aria-hidden="true"></i>추가</a>
+                        <a class="del" href="#"><i class="fa fa-minus" aria-hidden="true"></i>삭제</a>
+                    </div>
                 </div>
             </div>
             <h2>장소 및 일정</h2>
@@ -133,39 +134,139 @@
                     <span class="example">(레슨 진행 장소)</span>
                 </div>
                 <div class="add-remove">
-                    <p class="notice">추가 버튼을 누르면 복수의 활동장소 정보를 입력할 수 있습니다.(최대 3개)</p>
-                    <button class="add">추가</button>
-                    <button class="del">삭제</button>
+                    <p class="notice">추가 버튼을 누르면 복수의 활동장소 정보를 입력할 수 있습니다. (최대 3개)</p>
+                    <div class="add-del">
+                        <a class="add" href="#"><i class="fa fa-plus" aria-hidden="true"></i>추가</a>
+                        <a class="del" href="#"><i class="fa fa-minus" aria-hidden="true"></i>삭제</a>
+                    </div>
+                </div>
+                <div class="form-group join">
+                    <label for="date">요일 및 시간<span class="required">*</span></label>
+                    <select id="date" name="date">
+                        <option value=''>선택하세요</option> 
+                        <option value='월요일'>월요일</option> 
+                        <option value='화요일'>화요일</option> 
+                        <option value='수요일'>수요일</option> 
+                        <option value='목요일'>목요일</option> 
+                        <option value='금요일'>금요일</option> 
+                        <option value='토요일'>토요일</option> 
+                        <option value='일요일'>일요일</option> 
+                    </select>
+                    <select name="date2"> 
+                        <option value="">선택하세요</option>
+                        <option value='오전'>오전</option>
+                        <option value='오후'>오후</option>  
+                    </select> 
+                    <script type="text/javascript"> 
+                        $(document).ready(function(){ 
+                            $('#Address_D').change(function(){ 
+                                jQuery.ajax({ 
+                                    type:"POST", 
+                                    url:"/plugin/joso.php", 
+                                    data:"Name="+$(this).val(), 
+                                    success:function(msg){ 
+                                    $('#Address_S').html(msg); 
+                                    }, error:function(){
+
+                                    }
+                                }); 
+                            }); 
+                        }); 
+                    </script> 
+                    <span class="example">(레슨 진행 장소)</span>
+                </div>
+                <div class="add-remove">
+                    <p class="notice">추가 버튼을 누르면 복수의 활동장소 정보를 입력할 수 있습니다. (최대 3개)</p>
+                    <div class="add-del">
+                        <a class="add" href="#"><i class="fa fa-plus" aria-hidden="true"></i>추가</a>
+                        <a class="del" href="#"><i class="fa fa-minus" aria-hidden="true"></i>삭제</a>
+                    </div>
                 </div>
             </div>
             <h2>Career</h2>
             <div class="group">
                 <div class="form-group join career">
                     <label for="career">경력사항</label>
-                    <textarea id="career" name="career" maxlength="500">
-                    </textarea>
+                    <textarea id="career" name="career" maxlength="500" placeholder="업무 경력, 수상 내역, 출간 도서, 관련 자격증 등 마스터임을 보여줄 수 있는 경력 사항을 간략하게 적어주세요."></textarea>
                     <span class="length">최대 500자</span>
                 </div>
             </div>
             <div class="form-group button">
-                <input type="submit" class="btn" disabled value="다음 단계"/>
+                <input type="submit" class="btn next" value="다음 단계"/>
                 <input type="cancel" class="btn" value="취소"/>
             </div>
         </form>
+        <form class="validate master-form" id="two-step" name="master-form" method="POST" action="{{ url('/master-agree') }}" enctype="multipart/form-data">
+            {{ csrf_field() }}
+            <h2>자기소개</h2>
+            <div class="group">
+                <div class="form-group join">
+                    <label for="intro">한줄 소개<span class="required">*</span></label>
+                    <input type="text" id="intro" name="intro" maxlength="30" placeholder="마스터님을 한 줄로 표현해주세요."/>
+                    <span>최대 30자</span>
+                </div>
+                <div class="form-group join career">
+                    <label for="detail-intro">자기소개<span class="required">*</span></label>
+                    <textarea id="detail-intro" name="detail-intro" maxlength="500" placeholder="마스터가 된 과정, 포부, 나만의 개성과 노하우 등을 자유롭게 적어주세요."/>
+                    </textarea>
+                    <span class="length">최대 500자</span>
+                </div>
+                <div class="form-group join career">
+                    <label for="sns">SNS주소</label>
+                    <input type="text" id="sns" name="sns1" placeholder="블로그주소"/>
+                    <input type="text" id="sns" name="sns2" placeholder="www.facebook.com/"/>
+                    <input type="text" id="sns" name="sns3" placeholder="www.instagram.com/"/>
+                    <input type="text" id="sns" name="sns4" placeholder="카카오스토리"/>
+                </div>
+            </div>
+            <h2>제출 서류</h2>
+            <p class="notice warning">* 유의사항<br/>사업자 등록을 하지 않은 경우, 마스터 승인 60일 내로 사업자 등록 및 통신판매업 신고(면제 제외)를 완료한 후 서류 사본을 아임마스터로 제출해야 합니다. 서류 미제출시 마스터 승인이 자동으로 취소됩니다.<br/><a href="mailto:immaster@platformstory.com">제출처 : immaster@platformstory.com</a></p>
+            <div class="group">
+                <div class="form-group join">
+                    <label for="business_docu">사업자등록증</label>
+                    <input type="radio" id="business_docu_ok" name="business_docu_ok">
+                    <label for="business_docu_ok">등록</label>
+                    <input type="radio" id="business_docu_no" name="business_docu_no">
+                    <label for="business_docu_no">미등록</label>
+                    <span class="file">첨부</span>
+                    <input type="file" id="business_docu" name="business_docu"/>
+                </div>
+                <div class="form-group join">
+                    <label for="sales_docu">통신판매업신고증</label>
+                    <input type="radio" id="sales_docu_ok" name="sales_docu_ok">
+                    <label for="sales_docu_ok">등록</label>
+                    <input type="radio" id="sales_docu_no" name="sales_docu_no">
+                    <label for="sales_docu_no">미등록</label>
+                    <input type="radio" id="sales_docu_notneed" name="sales_docu_notneed">
+                    <label for="sales_docu_notneed">면제</label>
+                    <span class="file">첨부</span>
+                    <input type="file" id="sales_docu" name="sales_docu"/>
+                </div>
+                <div class="form-group join">
+                    <label for="bankbook">통장사본<span class="required">*</span></label>
+                    <span class="file">첨부</span>
+                    <input type="file" id="bankbook" name="bankbook"/>
+                </div>
+            </div>
+            <h2>갤러리</h2>
+            <div class="group">
+                <div class="form-group join">
+                    <label for="profile">프로필 사진<span class="required">*</span></label>
+                    <span class="file">첨부</span>
+                    <input type="file" id="profile" name="profile"/>
+                </div>
+                <div class="form-group join">
+                    <label for="image">추가 이미지</label>
+                    <span class="file">첨부</span>
+                    <input type="file" id="image" name="image"/>
+                </div>
+            </div>
+        </form>
+        <form class="validate master-form" id="final">
+            
+        </form>
     </div>
     <script>
-        $('input#totalAgree').on('click', function(){
-            document.getElementById('agree1_ok').checked = true;
-            document.getElementById('agree2_ok').checked = true;
-            document.getElementById('agree3_ok').checked = true;
-        });
-        $('input[type="radio"]').on('click', function(){
-            if( $('#agree1_ok').is(':checked') == true && $('#agree2_ok').is(':checked') == true && $('#agree3_ok').is(':checked') == true ){
-                $('input[type="submit"]').removeAttr('disabled').addClass('next');
-            }else{
-                $('input[type="submit"]').attr('disabled', 'disabled').removeClass('next');
-            }
-        });
         $('input[type="submit"]').on('click', function(e){
             e.preventDefault();
             if( confirm('다음 단계로 넘어가시겠습니까?') ){
