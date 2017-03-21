@@ -7,6 +7,9 @@ form,fieldset,input,textarea,p,blockquote,th,td {
 }
 a{
     text-decoration:none;
+    &:focus, &:hover{
+        text-decoration:none;
+    }
 }
 table {
     border-spacing: 0;
