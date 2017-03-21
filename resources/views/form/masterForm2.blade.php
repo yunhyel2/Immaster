@@ -52,9 +52,9 @@
                 </div>
                 <div class="form-group join">
                     <label for="gender">성별<span class="required">*</span></label>
-                    <input type="radio" id="male" name="gender" value="남"/>
+                    <input type="radio" id="male" name="gender" value="M"/>
                     <label for="male">남</label>
-                    <input type="radio" id="female" name="gender" value="여"/>
+                    <input type="radio" id="female" name="gender" value="F"/>
                     <label for="female">여</label>
                 </div>
             </div>
