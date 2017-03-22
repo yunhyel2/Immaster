@@ -63,8 +63,8 @@
                 <h2>카테고리</h2>
                 <div class="group">
                     <div class="form-group join category">
-                        <label for="category">카테고리분류<span class="required">*</span></label>
-                        <select id="category" name="category" class="required">
+                        <label for="category" name="category-label">카테고리분류<span class="required">*</span></label>
+                        <select id="category" name="category[]" class="required">
                             <option value="리빙/공예">리빙/공예</option>
                             <option value="뷰티/헬스">뷰티/헬스</option>
                             <option value="레포츠">레포츠</option>
@@ -80,7 +80,7 @@
                             <option value="봉사">봉사</option>
                             <option value="연예">연예</option>
                         </select>
-                        <input type="text" name="category-detail" class="required" placeholder="구체적인 레슨 주제를 입력해주세요."/>
+                        <input type="text" name="category-detail[]" class="required" placeholder="구체적인 레슨 주제를 입력해주세요."/>
                         <span class="example">예시) 디퓨저, 디제잉, 포토샵, 중국어회화</span>
                     </div>
                     <div class="add-remove">
@@ -94,8 +94,8 @@
                 <h2>장소 및 일정</h2>
                 <div class="group">
                     <div class="form-group join">
-                        <label for="location">주 활동 장소<span class="required">*</span></label>
-                        <select id="Address_D" name="location" class="required">
+                        <label for="location" name="location-label">주 활동 장소<span class="required">*</span></label>
+                        <select name="location[]" class="required">
                             <option value=''>선택하세요</option> 
                             <option value='서울특별시'>서울특별시</option> 
                             <option value='광주광역시'>광주광역시</option> 
@@ -115,18 +115,19 @@
                             <option value='충청남도'>충청남도</option> 
                             <option value='충청북도'>충청북도</option> 
                         </select>
-                        <select id="Address_S" name="location2" class="required"> 
+                        <select name="location2[]" class="required"> 
                             <option value="">선택하세요</option> 
                         </select> 
                         <script type="text/javascript"> 
                             $(document).ready(function(){ 
-                                $('#Address_D').change(function(){ 
+                                $('select[name="location[]"]').change(function(){ 
+                                    $this = $(this);
                                     jQuery.ajax({ 
                                         type:"POST", 
                                         url:"/plugin/joso.php", 
                                         data:"Name="+$(this).val(), 
                                         success:function(msg){ 
-                                        $('#Address_S').html(msg); 
+                                            $this.next().html(msg); 
                                         }, error:function(){
 
                                         }
@@ -144,8 +145,8 @@
                         </div>
                     </div>
                     <div class="form-group join">
-                        <label for="date">요일 및 시간<span class="required">*</span></label>
-                        <select id="date" name="date" class="required">
+                        <label for="date" name="date-label">요일 및 시간<span class="required">*</span></label>
+                        <select id="date" name="date[]" class="required">
                             <option value=''>선택하세요</option> 
                             <option value='월요일'>월요일</option> 
                             <option value='화요일'>화요일</option> 
@@ -155,27 +156,11 @@
                             <option value='토요일'>토요일</option> 
                             <option value='일요일'>일요일</option> 
                         </select>
-                        <select name="date2" class="required"> 
+                        <select name="date2[]" class="required"> 
                             <option value="">선택하세요</option>
                             <option value='오전'>오전</option>
                             <option value='오후'>오후</option>  
                         </select> 
-                        <script type="text/javascript"> 
-                            $(document).ready(function(){ 
-                                $('#Address_D').change(function(){ 
-                                    jQuery.ajax({ 
-                                        type:"POST", 
-                                        url:"/plugin/joso.php", 
-                                        data:"Name="+$(this).val(), 
-                                        success:function(msg){ 
-                                        $('#Address_S').html(msg); 
-                                        }, error:function(){
-
-                                        }
-                                    }); 
-                                }); 
-                            }); 
-                        </script> 
                         <span class="example">선호하는 일정을 선택해주세요</span>
                     </div>
                     <div class="add-remove">
@@ -299,24 +284,23 @@
                 </div>
                 <h2>카테고리</h2>
                 <div class="group">
-                    <div class="form-group join category">
+                    <div class="form-group join career">
                         <label for="category">카테고리분류<span class="required">*</span></label>
-                        <span name="category" class="result"></span>
-                        <span class="result"> > </span>
-                        <span name="category-detail" class="result"></span>
+                        <span name="category[]" class="result"></span>
+                        <span name="category-detail[]" class="result"></span>
                     </div>
                 </div>
                 <h2>장소 및 일정</h2>
                 <div class="group">
                     <div class="form-group join">
                         <label for="location">주 활동 장소<span class="required">*</span></label>
-                        <span name="location" class="result"></span>
-                        <span name="location2" class="result"></span>
+                        <span name="location[]" class="result"></span>
+                        <span name="location2[]" class="result"></span>
                     </div>
                     <div class="form-group join">
                         <label for="date">요일 및 시간<span class="required">*</span></label>
-                        <span name="date" class="result"></span>
-                        <span name="date2" class="result"></span>
+                        <span name="date[]" class="result"></span>
+                        <span name="date2[]" class="result"></span>
                     </div>
                 </div>
                 <h2>Career</h2>
@@ -338,9 +322,9 @@
                     </div>
                     <div class="form-group join career">
                         <label for="sns">SNS주소</label>
-                        <span class="result">블로그 : </span><span name="sns1" class="result"><br/></span>
-                        <span class="result">페이스북 : </span><span name="sns2" class="result"><br/></span>
-                        <span class="result">인스타 : </span><span name="sns3" class="result"><br/></span>
+                        <span class="result">블로그 : </span><span name="sns1" class="result"></span><span><br/></span>
+                        <span class="result">페이스북 : </span><span name="sns2" class="result"></span><span><br/></span>
+                        <span class="result">인스타 : </span><span name="sns3" class="result"></span><span><br/></span>
                         <span class="result">카카오스토리 : </span><span name="sns4" class="result"></span>
                     </div>
                 </div>
@@ -381,83 +365,5 @@
     <script type="text/javascript" src="/jquery.validation.1.15.0/jquery.validate.js"></script>
     <script type="text/javascript" src="/jquery.validation.1.15.0/messages_ko.min.js"></script>
     <script type="text/javascript" src="/jquery.validation.1.15.0/additional-methods.js"></script>
-    <script>
-        jQuery.validator.setDefaults({
-            debug: true,
-            success: "valid"
-        });
-        $('form.validate').validate({
-            submitHandler: function(form) {
-                // do other things for a valid form
-                if( $('nav.form-navi').find('li[name="final-step"]').hasClass('active') ){
-                    if( confirm('등록하시겠습니까?') ){
-                        form.submit();
-                    };
-                }else{
-                    if( confirm('다음 단계로 넘어가시겠습니까?') ){
-                        if( $('nav.form-navi').find('li[name="one-step"]').hasClass('active') ){
-                            $('div#two-step').removeClass('hidden').siblings('div').addClass('hidden');
-                            $('nav.form-navi').find('li').removeClass('active');
-                            $('nav.form-navi').find('li[name="one-step"]').next().addClass('active');
-                        }else{
-                            $('div#final-step').removeClass('hidden').siblings('div').addClass('hidden');
-                            $('nav.form-navi').find('li').removeClass('active');
-                            $('nav.form-navi').find('li[name="two-step"]').next().addClass('active');
-                            
-                            //FinalCheck
-                            $formData = $('form[name="master-form"]').serializeArray();
-                            $.each( $formData, function(i, data){
-                                if( i == 0 ){
-                                }else{
-                                    if( data.name == 'business_docu' || data.name == 'sales_docu'){
-                                        //등록.미등록.면제
-                                        if( data.value == '0' ){
-                                            $('div#final-step span[name="'+data.name+'"]').html('미등록');
-                                        }else if( data.value == '1' ){
-                                            $('div#final-step span[name="'+data.name+'"]').html('등록');
-                                        }else{
-                                            $('div#final-step span[name="'+data.name+'"]').html('면제');
-                                        }
-                                    }else{
-                                        $('div#final-step span[name="'+data.name+'"]').html(data.value);
-                                    }
-                                }
-                            });
-                        }
-                    }
-                };
-            }, errorPlacement: function(error, element) {
-                error.appendTo( element.parent("td").next("td") );
-            }
-        });
-        function finalCheck($target){
-            $name = $('[name="'+$target+'"]').parents('div.group').parent().attr('id');
-            var data = $('div#'+$name+' [name="'+$target+'"]').val();
-            $('div#final-step span[name="'+$target+'"]').html(data);
-        };
-        $('nav.form-navi li a').on('click', function(e){
-            e.preventDefault();
-            $name = $(this).parent().attr('name');
-            $(this).parent().addClass('active').siblings().removeClass('active');
-            $('div#'+$name).removeClass('hidden').siblings('div').addClass('hidden');;
-        });
-        $('span.file').on('click', function(){
-            $(this).parent().find('input[type="file"]').click();
-        });
-        $('input[type="file"]').on('change', function(){
-            $name = $(this).attr('name');
-            var fileValue = $(this).val().split('\\');
-            var fileNameFull = fileValue[fileValue.length-1];
-            if( fileNameFull.length > 30 ){
-                fileName = fileNameFull.substring(0,30) + '...';
-            }else{
-                fileName = fileNameFull;
-            }
-            if( !$(this).prev().hasClass('fileName') ){
-                $(this).before('<span class="fileName" style="font-size:11px;color:#555;"></span>');
-            };
-            $(this).prev('span.fileName').html('파일명 : '+fileName);
-            $('div#final-step').find('span[name="'+$name+'"]').html('파일명 : '+fileName);
-        });
-    </script>
+    <script type="text/javascript" src="/js/script.js"></script>
 @endsection

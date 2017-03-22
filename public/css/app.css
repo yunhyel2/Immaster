@@ -284,7 +284,7 @@ div.page.form div.form-group input[type="text"]#category, div.page.form div.form
   margin-right: 200px;
 }
 
-div.page.form div.form-group input[type="text"][name="category-detail"], div.page.form div.form-group select[name="category-detail"], div.page.form div.form-group span.file_name[name="category-detail"] {
+div.page.form div.form-group input[type="text"][name="category-detail[]"], div.page.form div.form-group select[name="category-detail[]"], div.page.form div.form-group span.file_name[name="category-detail[]"] {
   width: 250px;
   position: relative;
   top: -6px;
