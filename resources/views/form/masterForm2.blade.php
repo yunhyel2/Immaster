@@ -32,8 +32,8 @@
                         <label for="birth">생년월일</label>
                         <script language="javascript"> 
                             var today = new Date(); 
-                            var toyear = parseInt(today.getYear()); 
-                            var start = toyear - 5 
+                            var toyear = parseInt(today.getFullYear()); 
+                            var start = toyear 
                             var end = toyear - 70; 
 
                             document.write("<font size=2><select name=birth1>"); 
