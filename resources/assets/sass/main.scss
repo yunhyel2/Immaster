@@ -6,9 +6,8 @@ nav.navbar{
     position:absolute;
     top:0;
     left:0;
-    background:url('/img/main.png') no-repeat;
-    background-size:cover;
     border:none;
+    background:none;
     a.navbar-brand{
         padding:0;
         margin:20px 15px;
@@ -25,10 +24,6 @@ nav.navbar{
                 color:orange;
             }
         }
-    }
-    img.logo{
-        width:100px;
-        height:auto;
     }
 }
 div#footer{

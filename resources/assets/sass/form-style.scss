@@ -29,6 +29,10 @@ nav.form-navi{
         }
     }
 }
+form.validate{
+    clear:both;
+    margin-top:50px;
+}
 div.page.form{
     width:80%;
     max-width:650px;
@@ -62,10 +66,17 @@ div.page.form{
     span.file{
         font-size:12px;
         color:#aaa;
-        margin-left:20px;
+        margin-left:10px;
         margin-right:5px;
-        &:not(:nth-child(2)){
-            margin-left:50px;
+        cursor:pointer;
+        &.business{
+            margin-left:75px;
+        }
+        &:hover{
+            text-decoration:underline;
+        }
+        i{
+            margin:0 3px;
         }
     }
     p.notice{
@@ -85,6 +96,9 @@ div.page.form{
             }
         }
     }
+    input.error, select.error, textarea.error{
+        background:rgba(255,0,0,0.2);
+    }
     form[name="master-form"]{
         margin-top:40px;
     }
@@ -95,12 +109,13 @@ div.page.form{
     div.form-group{
         width:100%;
         &.join{
-            padding:3px;
             height:35px;
             padding:0;
             margin:0;
             border-bottom:1px solid #fff;
             box-sizing:border-box;
+            line-height:35px;
+            position:relative;
             &.category{
                 height:65px;
                 label:first-child{
@@ -109,6 +124,7 @@ div.page.form{
             }
             &.career{
                 height:120px;
+                line-height:28px;
                 label:first-child{
                     line-height:120px;
                 }
@@ -127,25 +143,41 @@ div.page.form{
                 box-sizing:border-box;
             }
             label{
-                height:35px;
+                display:inline;
                 line-height:35px;
+                margin:0;
+                padding:0;
             }
             input[type="radio"]{
                 margin-left:20px;
             }
         }
-        input[type="text"], select, input[type="file"]{
+        input[type="text"], select, span.file_name{
             display:inline-block;
             border:1px solid #ddd;
             font-size:11px;
             padding:4px 5px;
             margin-top:5px;
+            height:25px;
+            line-height:25px;
+            &#intro{
+                width:300px;
+            }
             &#category{
                 margin-right:200px;
             }
             &[name="category-detail"]{
                 width:250px;
+                position:relative;
+                top:-6px;
             }
+            &.sns{
+                width:300px;
+                margin:0;
+            }
+        }
+        input[type="file"]{
+            display:none;
         }
         textarea{
             margin:5px 0;
@@ -155,6 +187,7 @@ div.page.form{
             font-size:11px;
             box-sizing:border-box;
             padding:5px;
+            line-height: 1.5;
         }
         input[type="radio"]{
             border:1px solid #333;
@@ -176,7 +209,7 @@ div.page.form{
         }
         &.button{
             text-align:right;
-            input.btn{
+            input.btn, a.btn{
                 border:none;
                 font-size:12px;
                 width:80px;
@@ -185,6 +218,7 @@ div.page.form{
                 background:#ddd;
                 margin:20px 0 0 2px;
                 transition:all 0.5s;
+                color:#555;
                 &.next{
                     background:orangered;
                     color:#fff;
@@ -245,5 +279,14 @@ div.page.form{
                 top:1px;
             }
         }
+    }
+}
+div#final-step{
+    line-height:1.2;
+    span.result{
+        font-size:12px;
+        line-height:1.2;
+        padding:0;
+        height:initial;
     }
 }
