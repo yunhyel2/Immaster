@@ -14,14 +14,19 @@ nav.navbar{
         height:initial;
     }
     ul.nav{
-        a{
-            color:#fff;
-            font-weight:500;
-            line-height:65px;
-            display:inline;
-            &:hover{
-                font-weight:700;
-                color:orange;
+        font-size:13px;
+        height:55px;
+        li{
+            height:55px;
+            a{
+                color:#fff;
+                font-weight:500;
+                line-height:55px;
+                display:inline;
+                &:hover{
+                    font-weight:700;
+                    color:orange;
+                }
             }
         }
     }
@@ -65,4 +70,7 @@ div#footer{
 
 body{
     min-width:800px;
+}
+div.page{
+    min-height:600px;
 }

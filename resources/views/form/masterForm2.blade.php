@@ -1,6 +1,7 @@
 @extends('layouts.mainNav')
 
 @section('content')
+    <div class="shadow"></div>
     <div class="page form">
         <h1 class="hidden">마스터로 등록하기</h1>
         <nav class="form-navi">
@@ -80,7 +81,7 @@
                             <option value="봉사">봉사</option>
                             <option value="연예">연예</option>
                         </select>
-                        <input type="text" name="category-detail[]" class="required" placeholder="구체적인 레슨 주제를 입력해주세요."/>
+                        <input type="text" name="category-detail[]" class="required detail" placeholder="구체적인 레슨 주제를 입력해주세요."/>
                         <span class="example">예시) 디퓨저, 디제잉, 포토샵, 중국어회화</span>
                     </div>
                     <div class="add-remove">
@@ -190,12 +191,13 @@
                 <div class="group">
                     <div class="form-group join">
                         <label for="intro">한줄 소개<span class="required">*</span></label>
-                        <input type="text" id="intro" name="intro" maxlength="30" placeholder="마스터님을 한 줄로 표현해주세요." class="required"/>
+                        <input type="text" id="intro" name="intro" maxlength="30" placeholder="마스터님을 한 줄로 표현해주세요." class="required long"/>
                         <span>최대 30자</span>
                     </div>
                     <div class="form-group join career">
                         <label for="detail-intro">자기소개<span class="required">*</span></label>
                         <textarea id="detail-intro" name="detail-intro" maxlength="500" placeholder="마스터가 된 과정, 포부, 나만의 개성과 노하우 등을 자유롭게 적어주세요." class="required"/></textarea>
+                        <a class="example" href="#">예시 보기</a>
                         <span class="length">최대 500자</span>
                     </div>
                     <div class="form-group join career">
@@ -361,6 +363,15 @@
                 </div>
             </div>
         </form>
+        <div id="modal">
+            <h1>[카테고리] 외국어 / 영어회화</h1>
+            <p>안녕하세요! 영어회화 강사 Chris입니다.</p>
+            <p>미국LA에서 15년 유학생활을 마치고 2년 전에 한국에 돌아왔어요.<br/>본격적으로 영어를 가르친 지 1년이 조금 넘었구요, 본업은 평범한 회사원이랍니다.</p>
+            <p>저도 회사생활을 하면서 느끼는 것이지만 요즘은 기본 이상의 비즈니스 수준 대화를 위한 영어회화가 필수인 곳들이 수두룩하죠. 취업, 교환학생, 유학을 위해 꼭 해야 하지만 나보다 잘 하는 사람을 보면 '해서 뭐하나 어차피 쟤보단 못할 텐데'싶은 영어!<br/>저 Chris가 돌파구가 되어 드릴게요!</p>
+            <p>미드와 영화에서 자주 쓰이는 회화 표현들, 책으로는 배울 수 없는 실생활 문장들, TED 등의 연설연상에서 추출한 발표에 쓰이는 표현과 문장들을 활용한 수업으로 단기간에 회화 실력을 쑥 올릴 수 있습니다!</p>
+            <p>영어에 대한 기본기가 없다고 망설일 필요 없어요. 가장 중요한 건 자신감(정말로요)!<br/>Chris와 함께 영어 회화 스트레스 없이 배워봅시다!</p>
+            <a id="close" href="#">[닫기]</a>
+        </div>
     </div>
     <script type="text/javascript" src="/jquery.validation.1.15.0/jquery.validate.js"></script>
     <script type="text/javascript" src="/jquery.validation.1.15.0/messages_ko.min.js"></script>

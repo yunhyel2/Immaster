@@ -81,6 +81,55 @@ abbr, acronym {
   src: url("../font/KoPubDotumBold.eot") format("embedded-opentype"), url("../font/KoPubDotumBold.woff") format("woff");
 }
 
+div.shadow {
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  display: none;
+}
+
+div#modal {
+  display: none;
+  background: #fff;
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  margin-left: -250px;
+  width: 500px;
+  border-radius: 10px;
+  box-sizing: border-box;
+  padding: 20px 20px 50px 20px;
+  -webkit-transition: all 1s;
+  transition: all 1s;
+  z-index: 1001;
+}
+
+div#modal h1 {
+  font-size: 13px;
+  font-weight: 900;
+  margin: 30px 0 20px 0;
+  letter-spacing: -1px;
+  text-align: left;
+}
+
+div#modal p {
+  font-size: 12px;
+  letter-spacing: -1px;
+  line-height: 1.5;
+  margin: 10px 0;
+}
+
+div#modal a#close {
+  font-size: 12px;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  color: #333;
+}
+
 nav.form-navi ul {
   height: 35px;
   background: #ddd;
@@ -176,6 +225,24 @@ div.page.form span.file i {
   margin: 0 3px;
 }
 
+div.page.form span.detail {
+  font-size: 12px;
+  color: #aaa;
+  margin-left: 50px;
+}
+
+div.page.form a.example {
+  position: absolute;
+  top: 5px;
+  font-size: 11px;
+  letter-spacing: -1px;
+  font-weight: bold;
+  background: #ddd;
+  border-radius: 5px;
+  padding: 0 10px;
+  margin-left: 6px;
+}
+
 div.page.form p.notice {
   font-size: 12px;
   font-weight: bold;
@@ -266,7 +333,18 @@ div.page.form div.form-group.join input[type="radio"] {
   margin-left: 20px;
 }
 
-div.page.form div.form-group input[type="text"], div.page.form div.form-group select, div.page.form div.form-group span.file_name {
+div.page.form div.form-group.join input[type="checkbox"] {
+  margin-left: 10px;
+}
+
+div.page.form div.form-group.join textarea.tag_result {
+  position: relative;
+  top: -6px;
+  height: 25px;
+  font-weight: bold;
+}
+
+div.page.form div.form-group input[type="text"], div.page.form div.form-group input[type="email"], div.page.form div.form-group select, div.page.form div.form-group span.file_name {
   display: inline-block;
   border: 1px solid #ddd;
   font-size: 11px;
@@ -276,27 +354,48 @@ div.page.form div.form-group input[type="text"], div.page.form div.form-group se
   line-height: 25px;
 }
 
-div.page.form div.form-group input[type="text"]#intro, div.page.form div.form-group select#intro, div.page.form div.form-group span.file_name#intro {
-  width: 300px;
-}
-
-div.page.form div.form-group input[type="text"]#category, div.page.form div.form-group select#category, div.page.form div.form-group span.file_name#category {
+div.page.form div.form-group input[type="text"]#category, div.page.form div.form-group input[type="email"]#category, div.page.form div.form-group select#category, div.page.form div.form-group span.file_name#category {
   margin-right: 200px;
 }
 
-div.page.form div.form-group input[type="text"][name="category-detail[]"], div.page.form div.form-group select[name="category-detail[]"], div.page.form div.form-group span.file_name[name="category-detail[]"] {
+div.page.form div.form-group input[type="text"].detail, div.page.form div.form-group input[type="email"].detail, div.page.form div.form-group select.detail, div.page.form div.form-group span.file_name.detail {
   width: 250px;
   position: relative;
   top: -6px;
 }
 
-div.page.form div.form-group input[type="text"].sns, div.page.form div.form-group select.sns, div.page.form div.form-group span.file_name.sns {
+div.page.form div.form-group input[type="text"].detail#sample6_address, div.page.form div.form-group input[type="email"].detail#sample6_address, div.page.form div.form-group select.detail#sample6_address, div.page.form div.form-group span.file_name.detail#sample6_address {
+  width: 350px;
+}
+
+div.page.form div.form-group input[type="text"].sns, div.page.form div.form-group input[type="email"].sns, div.page.form div.form-group select.sns, div.page.form div.form-group span.file_name.sns {
   width: 300px;
   margin: 0;
 }
 
+div.page.form div.form-group input[type="text"].small, div.page.form div.form-group input[type="email"].small, div.page.form div.form-group select.small, div.page.form div.form-group span.file_name.small {
+  width: 40px;
+}
+
+div.page.form div.form-group input[type="text"].long, div.page.form div.form-group input[type="email"].long, div.page.form div.form-group select.long, div.page.form div.form-group span.file_name.long {
+  width: 300px;
+}
+
+div.page.form div.form-group input[type="text"].very-long, div.page.form div.form-group input[type="email"].very-long, div.page.form div.form-group select.very-long, div.page.form div.form-group span.file_name.very-long {
+  width: 400px;
+}
+
 div.page.form div.form-group input[type="file"] {
   display: none;
+}
+
+div.page.form div.form-group input[type="button"] {
+  font-size: 11px;
+  border: 1px solid #ccc;
+  background: #ddd;
+  height: 25px;
+  width: 80px;
+  line-height: 25px;
 }
 
 div.page.form div.form-group textarea {
@@ -310,14 +409,14 @@ div.page.form div.form-group textarea {
   line-height: 1.5;
 }
 
-div.page.form div.form-group input[type="radio"] {
+div.page.form div.form-group input[type="radio"], div.page.form div.form-group input[type="checkbox"] {
   border: 1px solid #333;
   background: #fff;
   position: relative;
   top: 2px;
 }
 
-div.page.form div.form-group input[type="radio"].disagree {
+div.page.form div.form-group input[type="radio"].disagree, div.page.form div.form-group input[type="checkbox"].disagree {
   margin-left: 30px;
 }
 
@@ -430,6 +529,115 @@ div#final-step span.result {
   height: initial;
 }
 
+div.complete {
+  width: 500px;
+  clear: both;
+  margin: 180px auto;
+  text-align: center;
+}
+
+div.complete h1.title {
+  font-size: 25px;
+  letter-spacing: -2px;
+  margin-bottom: 30px;
+}
+
+div.complete p {
+  font-size: 12px;
+  letter-spacing: -1px;
+  line-height: 1.5;
+}
+
+div.complete div.service {
+  width: 250px;
+  margin: 0 125px;
+  text-align: left;
+  padding: 50px 0 80px 0;
+}
+
+div.complete div.service p:first-child {
+  margin: 20px 0;
+}
+
+div.complete div.service p b {
+  letter-spacing: 0;
+  font-weight: 900;
+}
+
+div.complete a.btn {
+  color: #fff;
+  background: orangered;
+  width: 80px;
+  height: 30px;
+  line-height: 30px;
+  font-size: 12px;
+  letter-spacing: -1px;
+  border-radius: 5px;
+}
+
+form[name="master-check"] {
+  width: 450px;
+  margin: 150px auto;
+  position: relative;
+}
+
+form[name="master-check"] p {
+  font-size: 12px;
+  letter-spacing: -1px;
+  margin: 20px 0;
+}
+
+form[name="master-check"] label {
+  width: 100px;
+}
+
+form[name="master-check"] input:not([type="submit"]) {
+  width: 250px;
+}
+
+form[name="master-check"] a.masterJoinBtn {
+  background: orangered;
+  color: #fff;
+  padding: 8px 5px;
+  margin-left: 5px;
+  position: relative;
+  top: -1px;
+  font-weight: bold;
+}
+
+form[name="master-check"] div.button {
+  position: absolute;
+  right: 0;
+  top: 40px;
+  width: 80px;
+  height: 60px;
+}
+
+form[name="master-check"] div.button input[type="submit"] {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: orangered;
+  color: #fff;
+  border: none;
+  font-size: 12px;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+form[name="master-check"] div.button input[type="submit"]:disabled {
+  background: #bbb;
+}
+
+form[name="master-check"] div.mastercheck {
+  border-bottom: 2px solid #aaa;
+  padding-bottom: 50px;
+}
+
+form[name="master-check"] div.mastercheck div.form-group {
+  margin: 0;
+}
+
 div.box {
   padding: 10px 5px;
 }
@@ -493,14 +701,23 @@ nav.navbar a.navbar-brand {
   height: initial;
 }
 
-nav.navbar ul.nav a {
+nav.navbar ul.nav {
+  font-size: 13px;
+  height: 55px;
+}
+
+nav.navbar ul.nav li {
+  height: 55px;
+}
+
+nav.navbar ul.nav li a {
   color: #fff;
   font-weight: 500;
-  line-height: 65px;
+  line-height: 55px;
   display: inline;
 }
 
-nav.navbar ul.nav a:hover {
+nav.navbar ul.nav li a:hover {
   font-weight: 700;
   color: orange;
 }
@@ -552,6 +769,10 @@ div#footer div.logo-wrap {
 
 body {
   min-width: 800px;
+}
+
+div.page {
+  min-height: 600px;
 }
 
 /*# sourceMappingURL=app.css.map */

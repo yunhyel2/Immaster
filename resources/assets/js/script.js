@@ -97,3 +97,23 @@
             };
         };
     });
+    $('a.del').on('click', function(e){
+        e.preventDefault();
+        $name = $(this).parents('div.add-remove').prev('.form-group').find('label').attr('name');
+        if( document.getElementsByName($name).length > 1 ){
+            $(this).parents('div.add-remove').prev('.form-group').remove();
+        };
+    });
+//MODAL
+    $('a.example').on('click', function(e){
+        e.preventDefault();
+        $('div#modal').show();
+        $('div.shadow').show();
+        $('a#close').focus();
+    });
+    $('div.shadow, a#close').on('click', function(e){
+        e.preventDefault();
+        $('div#modal').hide();
+        $('div.shadow').hide();
+        $('a.example').focus();
+    });
