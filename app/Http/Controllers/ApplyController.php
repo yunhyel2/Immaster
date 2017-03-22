@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\UploadedFile;
 use App\Masterapplies; 
 use App\Applycategory;
 use App\Applydate;
@@ -28,30 +30,32 @@ class ApplyController extends Controller
     
     public function masterApplyStore(Request $request)
     {
-        $apply = new Masterapplies($request->all());
+        // $request = $request->except(['_method', '_token']);
+        // $apply = new Masterapplies($request);
 
-        // $apply = new Masterapplies;
-        // $apply->email = $request->input('email');
-        // $apply->name = $request->input('name');
-        // $apply->phone = $request->input('phone');
-        // $birth = $request->input('birth');
-        // $apply->birth = $birth;
-        // $apply->gender = $request->input('gender');
-        // $apply->career = $request->input('career');
+        $apply = new Masterapplies;
+        $apply->name = $request->input('master_name');
+        $apply->phone = $request->input('phone');
+        $apply->gender = $request->input('gender');
+        $apply->career = $request->input('career');
+        $apply->intro = $request->input('intro');
+        $apply->intro_detail = $request->input('detail-intro');
+        
         $gender = $request->input('gender');
         if( $gender == '남자' ) {
             $apply->gender = 'M';
         } else {
             $apply->gender = 'F';
         }
-        $mail = $request->input('mail01');
-        $apply->mail = $mail;
+        $email = $request->input('email01') . '@' . $request->input('email02');
+        $apply->email = $email;
 
         $year = $request->input('birth1');
         $month = $request->input('birth2');
         $date = $request->input('birth3');
-        $apply->birthday = $year . $month . $date; 
-
+        $apply->birth = $year . $month . $date; 
+        $apply->business = $request->input('business_docu');
+        $apply->sale = $request->input('sales_docu');
         if( $request->file('business_docu') != null ) { 
             $business = $request->file('business_docu');
             $business_name = $business->getClientOriginalName();
@@ -60,8 +64,8 @@ class ApplyController extends Controller
             $apply->business_docu = 'https://s3.ap-northeast-2.amazonaws.com/immaster/' . $store_business;
         }
 
-        if( $request->file('sale_docu') != null ) { 
-            $sale = $request->file('sale_docu');
+        if( $request->file('sales_docu') != null ) { 
+            $sale = $request->file('sales_docu');
             $sale_name = $sale->getClientOriginalName();
             $apply->sale_name = $sale_name;
             $store_sale = Storage::put('master-apply', $sale, 'public');
@@ -72,7 +76,7 @@ class ApplyController extends Controller
         $bank_name = $bankbook->getClientOriginalName();
         $apply->bankbook_name = $bank_name;
         $store_bank = Storage::put('master-apply', $bankbook, 'public');
-        $apply->bankbook = 'https://s3.ap-northeast-2.amazonaws.com/immaster/' . $store_bank;
+        $apply->bankbook_docu = 'https://s3.ap-northeast-2.amazonaws.com/immaster/' . $store_bank;
 
         $profile_image = $request->file('profile');
         $profile_name = $profile_image->getClientOriginalName();
@@ -96,7 +100,7 @@ class ApplyController extends Controller
             // if( $category != null ) {
                 $category_detail = $request->input('category-detail');
                 $master_category = new Applycategory;
-                $master_category->master_id = $apply->id;
+                $master_category->apply_id = $apply->id;
                 $master_category->category = $category_id;
                 $master_category->category_detail = $category_detail;
                 $master_category->save();
@@ -106,7 +110,7 @@ class ApplyController extends Controller
             // if( $location != null ) {
                 $location_detail = $request->input('location2');
                 $master_location = new Applylocation;
-                $master_location->master_id = $apply->id;
+                $master_location->apply_id = $apply->id;
                 $master_location->location = $location;
                 $master_location->location_detail = $location_detail;
                 $master_location->save();
@@ -116,12 +120,12 @@ class ApplyController extends Controller
         $master_date = new Applydate;
         $day = $request->input('date');
         $time = $request->input('date2');
-        $master_date->master_id = $apply->id;
+        $master_date->apply_id = $apply->id;
         $master_date->day = $day;
         $master_date->time = $time;
         $master_date->save();
 
-
+        return redirect('/');
     }
 
 

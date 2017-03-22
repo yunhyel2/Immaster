@@ -10,7 +10,7 @@
                 <li name="final-step"><a href="#">등록하기</a></li>
             </ul>
         </nav>
-        <form class="validate" name="master-form" method="POST" action="{{ url('/master-agree') }}" enctype="multipart/form-data">
+        <form class="validate" name="master-form" method="POST" action="{{ url('/master-store') }}" enctype="multipart/form-data">
             {{ csrf_field() }}
             <!--- 1STEP -->
             <div id="one-step">
@@ -22,7 +22,7 @@
                     </div>
                     <div class="form-group join">
                         <label for="name">이름<span class="required">*</span></label>
-                        <input type="text" id="name" name="name" class="required"/>
+                        <input type="text" id="name" name="master_name" class="required"/>
                     </div>
                     <div class="form-group join">
                         <label for="phone">휴대전화<span class="required">*</span></label>
@@ -280,7 +280,7 @@
                     </div>
                     <div class="form-group join">
                         <label for="name">이름<span class="required">*</span></label>
-                        <span name="name" class="result"></span>
+                        <span name="master_name" class="result"></span>
                     </div>
                     <div class="form-group join">
                         <label for="phone">휴대전화<span class="required">*</span></label>
