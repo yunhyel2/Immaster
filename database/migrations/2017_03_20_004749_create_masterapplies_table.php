@@ -23,8 +23,8 @@ class CreateMasterappliesTable extends Migration
 
             $table->string('career')->nullable();
 
-            $table->string('short-introduction');
-            $table->string('introduction');
+            $table->string('intro');
+            $table->string('intro_detail');
             $table->string('sns_1')->nullable();
             $table->string('sns_2')->nullable();
             $table->string('sns_3')->nullable();

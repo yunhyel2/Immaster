@@ -18,8 +18,8 @@ class CreateApplydateTable extends Migration
             $table->string('day');
             $table->string('time');
 
-            $table->integer('master_id')->unsigned();
-            $table->foreign('master_id')->references('id')->on('masterapplies');
+            $table->integer('apply_id')->unsigned();
+            $table->foreign('apply_id')->references('id')->on('masterapplies');
         });
     }
 

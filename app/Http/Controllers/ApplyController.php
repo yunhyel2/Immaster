@@ -7,6 +7,7 @@ use App\Masterapplies;
 use App\Applycategory;
 use App\Applydate;
 use App\Applylocation;
+use App\Server_userprofile;
 
 class ApplyController extends Controller
 {
@@ -36,11 +37,19 @@ class ApplyController extends Controller
         // $apply->birth = $birth;
         // $apply->gender = $request->input('gender');
         // $apply->career = $request->input('career');
-        
-        // $year = $request->input('year');
-        // $month = $request->input('month');
-        // $date = $request->input('date');
-        // $apply->birthday = $year . $month . $date; 
+        $gender = $request->input('gender');
+        if( $gender == '남자' ) {
+            $apply->gender = 'M';
+        } else {
+            $apply->gender = 'F';
+        }
+        $mail = $request->input('mail01');
+        $apply->mail = $mail;
+
+        $year = $request->input('birth1');
+        $month = $request->input('birth2');
+        $date = $request->input('birth3');
+        $apply->birthday = $year . $month . $date; 
 
         if( $request->file('business_docu') != null ) { 
             $business = $request->file('business_docu');
@@ -64,7 +73,7 @@ class ApplyController extends Controller
         $store_bank = Storage::put('master-apply', $bankbook, 'public');
         $apply->bankbook = 'https://s3.ap-northeast-2.amazonaws.com/immaster/' . $store_bank;
 
-        $profile_image = $request->file('profile_image');
+        $profile_image = $request->file('profile');
         $profile_name = $profile_image->getClientOriginalName();
         $apply->profile_name = $profile_name;
         $store_profile = Storage::put('master-apply', $profile_image, 'public');
@@ -83,17 +92,17 @@ class ApplyController extends Controller
         for( $i=1; $i<4; $i++ ) {
             $category = $request->input('category'.$i);
             if( $category != null ) {
-                $tag = $request->input('category-detail'.$i);
+                $category_detail = $request->input('category-detail'.$i);
                 $master_category = new Applycategory;
                 $master_category->master_id = $apply->id;
                 $master_category->category = $category;
-                $master_category->tag = $tag;
+                $master_category->category_detail = $category_detail;
                 $master_category->save();
             }
             
             $location = $request->input('location'.$i);
             if( $location != null ) {
-                $location_detail = $request->input('location_detail'.$i);
+                $location_detail = $request->input('location2'.$i);
                 $master_location = new Applylocation;
                 $master_location->master_id = $apply->id;
                 $master_location->location = $location;
@@ -103,30 +112,51 @@ class ApplyController extends Controller
         }
 
         $master_date = new Applydate;
+        $day = $request->input('date');
+        $time = $request->input('date2');
+        $master_date->master_id = $apply->id;
+        $master_date->day = $day;
+        $master_date->time = $time;
+        $master_date->save();
+
 
     }
 
-    
-    public function show($id)
-    {
-        //
+
+    public function confirmMaster(Request $request) {
+        $email = $request->input('email');
+        $name = $request->input('name');
+        $status = $request->input('status'); //play or lesson 
+
+        //email & name에 validation 처리할 것 
+        $user = Server_userprofile::where('user_login_id', $email)->where('user_name', $name)->first();
+        if( $user != null ) {
+            
+            if( $status == 'play') {
+                return view('form.palyForm');
+            } else {
+                return view('form.lessonForm');
+            }
+            
+        } else {
+            // 일치하는 이메일 혹은 이름이 없습니다. 
+            return back();
+        }
     }
 
-    
-    public function edit($id)
-    {
-        //
+
+    public function playApplyStore(Request $request) {
+        $status = $request->input('status');
+
+
+        return view('form.complete')->with('status', $status);
     }
 
-    
-    public function update(Request $request, $id)
-    {
-        //
+    public function lessonApplyStore(Request $request) {
+        $status = $request->input('status');
+
+
+        return view('form.complete')->with('status', $status);
     }
 
-    
-    public function destroy($id)
-    {
-        //
-    }
 }

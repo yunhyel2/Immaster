@@ -30,7 +30,7 @@
                     <script language="javascript"> 
                         var today = new Date(); 
                         var toyear = parseInt(today.getYear()); 
-                        var start = toyear - 5 
+                        var start = toyear - 5;
                         var end = toyear - 70; 
 
                         document.write("<font size=2><select name=birth1>"); 
@@ -51,9 +51,9 @@
                 </div>
                 <div class="form-group join">
                     <label for="gender">성별<span class="required">*</span></label>
-                    <input type="radio" id="male" name="gender" value="M"/>
+                    <input type="radio" id="male" name="gender" value="남자"/>
                     <label for="male">남</label>
-                    <input type="radio" id="female" name="gender" value="F"/>
+                    <input type="radio" id="female" name="gender" value="여자"/>
                     <label for="female">여</label>
                 </div>
             </div>

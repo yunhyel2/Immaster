@@ -18,8 +18,8 @@ class CreateApplylocationTable extends Migration
             $table->string('location');
             $table->string('location_detail');
 
-            $table->integer('master_id')->unsigned();
-            $table->foreign('master_id')->references('id')->on('masterapplies');
+            $table->integer('apply_id')->unsigned();
+            $table->foreign('apply_id')->references('id')->on('masterapplies');
         });
     }
 

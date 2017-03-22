@@ -16,10 +16,10 @@ class CreateApplycategoryTable extends Migration
         Schema::create('applycategory', function (Blueprint $table) {
             $table->increments('id');
             $table->string('category');
-            $table->string('tag');
+            $table->string('category_detail');
 
-            $table->integer('master_id')->unsigned();
-            $table->foreign('master_id')->references('id')->on('masterapplies');
+            $table->integer('apply_id')->unsigned();
+            $table->foreign('apply_id')->references('id')->on('masterapplies');
         });
     }
 
