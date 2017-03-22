@@ -40,6 +40,10 @@ class ApplyController extends Controller
         $apply->career = $request->input('career');
         $apply->intro = $request->input('intro');
         $apply->intro_detail = $request->input('detail-intro');
+        $apply->sns_1 = $request->input('sns1');
+        $apply->sns_2 = $request->input('sns2');
+        $apply->sns_3 = $request->input('sns3');
+        $apply->sns_4 = $request->input('sns4');
         
         $gender = $request->input('gender');
         if( $gender == '남자' ) {
@@ -56,6 +60,7 @@ class ApplyController extends Controller
         $apply->birth = $year . $month . $date; 
         $apply->business = $request->input('business_docu');
         $apply->sale = $request->input('sales_docu');
+
         if( $request->file('business_docu') != null ) { 
             $business = $request->file('business_docu');
             $business_name = $business->getClientOriginalName();
