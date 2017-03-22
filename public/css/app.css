@@ -115,6 +115,11 @@ nav.form-navi ul li.active a {
   color: #333;
 }
 
+form.validate {
+  clear: both;
+  margin-top: 50px;
+}
+
 div.page.form {
   width: 80%;
   max-width: 650px;
@@ -154,12 +159,21 @@ div.page.form span.length {
 div.page.form span.file {
   font-size: 12px;
   color: #aaa;
-  margin-left: 20px;
+  margin-left: 10px;
   margin-right: 5px;
+  cursor: pointer;
 }
 
-div.page.form span.file:not(:nth-child(2)) {
-  margin-left: 50px;
+div.page.form span.file.business {
+  margin-left: 75px;
+}
+
+div.page.form span.file:hover {
+  text-decoration: underline;
+}
+
+div.page.form span.file i {
+  margin: 0 3px;
 }
 
 div.page.form p.notice {
@@ -183,6 +197,10 @@ div.page.form p.notice.warning a:hover {
   text-decoration: underline;
 }
 
+div.page.form input.error, div.page.form select.error, div.page.form textarea.error {
+  background: rgba(255, 0, 0, 0.2);
+}
+
 div.page.form form[name="master-form"] {
   margin-top: 40px;
 }
@@ -197,12 +215,13 @@ div.page.form div.form-group {
 }
 
 div.page.form div.form-group.join {
-  padding: 3px;
   height: 35px;
   padding: 0;
   margin: 0;
   border-bottom: 1px solid #fff;
   box-sizing: border-box;
+  line-height: 35px;
+  position: relative;
 }
 
 div.page.form div.form-group.join.category {
@@ -215,6 +234,7 @@ div.page.form div.form-group.join.category label:first-child {
 
 div.page.form div.form-group.join.career {
   height: 120px;
+  line-height: 28px;
 }
 
 div.page.form div.form-group.join.career label:first-child {
@@ -236,28 +256,47 @@ div.page.form div.form-group.join label:first-child {
 }
 
 div.page.form div.form-group.join label {
-  height: 35px;
+  display: inline;
   line-height: 35px;
+  margin: 0;
+  padding: 0;
 }
 
 div.page.form div.form-group.join input[type="radio"] {
   margin-left: 20px;
 }
 
-div.page.form div.form-group input[type="text"], div.page.form div.form-group select, div.page.form div.form-group input[type="file"] {
+div.page.form div.form-group input[type="text"], div.page.form div.form-group select, div.page.form div.form-group span.file_name {
   display: inline-block;
   border: 1px solid #ddd;
   font-size: 11px;
   padding: 4px 5px;
   margin-top: 5px;
+  height: 25px;
+  line-height: 25px;
 }
 
-div.page.form div.form-group input[type="text"]#category, div.page.form div.form-group select#category, div.page.form div.form-group input[type="file"]#category {
+div.page.form div.form-group input[type="text"]#intro, div.page.form div.form-group select#intro, div.page.form div.form-group span.file_name#intro {
+  width: 300px;
+}
+
+div.page.form div.form-group input[type="text"]#category, div.page.form div.form-group select#category, div.page.form div.form-group span.file_name#category {
   margin-right: 200px;
 }
 
-div.page.form div.form-group input[type="text"][name="category-detail"], div.page.form div.form-group select[name="category-detail"], div.page.form div.form-group input[type="file"][name="category-detail"] {
+div.page.form div.form-group input[type="text"][name="category-detail"], div.page.form div.form-group select[name="category-detail"], div.page.form div.form-group span.file_name[name="category-detail"] {
   width: 250px;
+  position: relative;
+  top: -6px;
+}
+
+div.page.form div.form-group input[type="text"].sns, div.page.form div.form-group select.sns, div.page.form div.form-group span.file_name.sns {
+  width: 300px;
+  margin: 0;
+}
+
+div.page.form div.form-group input[type="file"] {
+  display: none;
 }
 
 div.page.form div.form-group textarea {
@@ -268,6 +307,7 @@ div.page.form div.form-group textarea {
   font-size: 11px;
   box-sizing: border-box;
   padding: 5px;
+  line-height: 1.5;
 }
 
 div.page.form div.form-group input[type="radio"] {
@@ -296,7 +336,7 @@ div.page.form div.form-group.button {
   text-align: right;
 }
 
-div.page.form div.form-group.button input.btn {
+div.page.form div.form-group.button input.btn, div.page.form div.form-group.button a.btn {
   border: none;
   font-size: 12px;
   width: 80px;
@@ -306,9 +346,10 @@ div.page.form div.form-group.button input.btn {
   margin: 20px 0 0 2px;
   -webkit-transition: all 0.5s;
   transition: all 0.5s;
+  color: #555;
 }
 
-div.page.form div.form-group.button input.btn.next {
+div.page.form div.form-group.button input.btn.next, div.page.form div.form-group.button a.btn.next {
   background: orangered;
   color: #fff;
   font-weight: bold;
@@ -378,6 +419,17 @@ div.page.form div.add-del a:active {
   top: 1px;
 }
 
+div#final-step {
+  line-height: 1.2;
+}
+
+div#final-step span.result {
+  font-size: 12px;
+  line-height: 1.2;
+  padding: 0;
+  height: initial;
+}
+
 div.box {
   padding: 10px 5px;
 }
@@ -431,9 +483,8 @@ nav.navbar {
   position: absolute;
   top: 0;
   left: 0;
-  background: url("/img/main.png") no-repeat;
-  background-size: cover;
   border: none;
+  background: none;
 }
 
 nav.navbar a.navbar-brand {
@@ -452,11 +503,6 @@ nav.navbar ul.nav a {
 nav.navbar ul.nav a:hover {
   font-weight: 700;
   color: orange;
-}
-
-nav.navbar img.logo {
-  width: 100px;
-  height: auto;
 }
 
 div#footer {

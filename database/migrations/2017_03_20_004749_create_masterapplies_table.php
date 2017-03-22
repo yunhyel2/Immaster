@@ -15,7 +15,7 @@ class CreateMasterappliesTable extends Migration
     {
         Schema::create('masterapplies', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('email')->unique();
+            $table->string('email');
             $table->string('name');
             $table->string('phone');
             $table->string('birth')->nullable();

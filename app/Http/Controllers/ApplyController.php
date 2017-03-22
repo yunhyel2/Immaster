@@ -8,6 +8,7 @@ use App\Applycategory;
 use App\Applydate;
 use App\Applylocation;
 use App\Server_userprofile;
+use App\Server_lessoncategorycode;
 
 class ApplyController extends Controller
 {
@@ -89,27 +90,28 @@ class ApplyController extends Controller
 
         $apply->save();
 
-        for( $i=1; $i<4; $i++ ) {
-            $category = $request->input('category'.$i);
-            if( $category != null ) {
-                $category_detail = $request->input('category-detail'.$i);
+        // for( $i=1; $i<4; $i++ ) {
+            $category = $request->input('category');
+            $category_id = Server_lessoncategorycode::where('category', $category)->first()->id;
+            // if( $category != null ) {
+                $category_detail = $request->input('category-detail');
                 $master_category = new Applycategory;
                 $master_category->master_id = $apply->id;
-                $master_category->category = $category;
+                $master_category->category = $category_id;
                 $master_category->category_detail = $category_detail;
                 $master_category->save();
-            }
+            // }
             
-            $location = $request->input('location'.$i);
-            if( $location != null ) {
-                $location_detail = $request->input('location2'.$i);
+            $location = $request->input('location');
+            // if( $location != null ) {
+                $location_detail = $request->input('location2');
                 $master_location = new Applylocation;
                 $master_location->master_id = $apply->id;
                 $master_location->location = $location;
                 $master_location->location_detail = $location_detail;
                 $master_location->save();
-            }
-        }
+            // }
+        // }
 
         $master_date = new Applydate;
         $day = $request->input('date');

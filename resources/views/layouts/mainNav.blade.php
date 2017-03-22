@@ -32,7 +32,7 @@
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!-- Scripts -->
-<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script>
     window.Laravel = {!! json_encode([
         'csrfToken' => csrf_token(),
@@ -46,11 +46,11 @@
 </head>
 
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top" class="{{ Request::segment(1) == 'join' ? 'form' : '' }}">
-    <nav class="navbar navbar-default navbar-static-top">
+    <nav class="navbar navbar-default navbar-static-top" style="{{ Request::segment(1) != null ? 'background:url(\'/img/main.png\') no-repeat;background-size:cover;' : '' }}">
         <div class="container">
             <div class="navbar-header">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    <img class="logo" src="{{ url('/img/logo_01.png') }}" alt="아임마스터">
+                    <img class="logo" src="{{ url('/img/logo_01.png') }}" alt="아임마스터" style="{{ !Request::segment(1) ? '' : 'width:100px;height:auto;' }}">
                 </a>
             </div>
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
