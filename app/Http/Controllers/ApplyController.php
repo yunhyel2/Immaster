@@ -40,6 +40,10 @@ class ApplyController extends Controller
         $apply->career = $request->input('career');
         $apply->intro = $request->input('intro');
         $apply->intro_detail = $request->input('detail-intro');
+        $apply->sns_1 = $request->input('sns1');
+        $apply->sns_2 = $request->input('sns2');
+        $apply->sns_3 = $request->input('sns3');
+        $apply->sns_4 = $request->input('sns4');
         
         $gender = $request->input('gender');
         if( $gender == '남자' ) {
@@ -56,6 +60,7 @@ class ApplyController extends Controller
         $apply->birth = $year . $month . $date; 
         $apply->business = $request->input('business_docu');
         $apply->sale = $request->input('sales_docu');
+
         if( $request->file('business_docu') != null ) { 
             $business = $request->file('business_docu');
             $business_name = $business->getClientOriginalName();
@@ -94,36 +99,36 @@ class ApplyController extends Controller
 
         $apply->save();
 
-        // for( $i=1; $i<4; $i++ ) {
+        
             $category = $request->input('category');
-            $category_id = Server_lessoncategorycode::where('category', $category)->first()->id;
-            // if( $category != null ) {
-                $category_detail = $request->input('category-detail');
-                $master_category = new Applycategory;
-                $master_category->apply_id = $apply->id;
-                $master_category->category = $category_id;
-                $master_category->category_detail = $category_detail;
-                $master_category->save();
-            // }
-            
+            $category_detail = $request->input('category-detail');
             $location = $request->input('location');
-            // if( $location != null ) {
-                $location_detail = $request->input('location2');
-                $master_location = new Applylocation;
-                $master_location->apply_id = $apply->id;
-                $master_location->location = $location;
-                $master_location->location_detail = $location_detail;
-                $master_location->save();
-            // }
-        // }
+            $location_detail = $request->input('location2');
+            $day = $request->input('date');
+            $time = $request->input('date2');
 
-        $master_date = new Applydate;
-        $day = $request->input('date');
-        $time = $request->input('date2');
-        $master_date->apply_id = $apply->id;
-        $master_date->day = $day;
-        $master_date->time = $time;
-        $master_date->save();
+        for( $i=0; $i<3; $i++ ) {
+            $category_id = Server_lessoncategorycode::where('category', $category[$i])->first()->id;
+            // $category_id = 2;
+            $master_category = new Applycategory;
+            $master_category->apply_id = $apply->id;
+            $master_category->category = $category_id;
+            $master_category->category_detail = $category_detail[$i];
+            $master_category->save();
+
+            $master_location = new Applylocation;
+            $master_location->apply_id = $apply->id;
+            $master_location->location = $location[$i];
+            $master_location->location_detail = $location_detail[$i];
+            $master_location->save();
+
+            $master_date = new Applydate;
+            $master_date->apply_id = $apply->id;
+            $master_date->day = $day[$i];
+            $master_date->time = $time[$i];
+            $master_date->save();
+
+        }
 
         return redirect('/');
     }

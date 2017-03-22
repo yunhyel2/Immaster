@@ -20,6 +20,8 @@ class CreateApplycategoryTable extends Migration
 
             $table->integer('apply_id')->unsigned();
             $table->foreign('apply_id')->references('id')->on('masterapplies');
+
+            $table->timestamps();
         });
     }
 
