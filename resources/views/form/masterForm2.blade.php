@@ -10,7 +10,7 @@
                 <li name="final-step"><a href="#">등록하기</a></li>
             </ul>
         </nav>
-        <form class="validate" name="master-form" method="POST" action="{{ url('/master-agree') }}" enctype="multipart/form-data">
+        <form class="validate" name="master-form" method="POST" action="{{ url('/master-store') }}" enctype="multipart/form-data">
             {{ csrf_field() }}
             <!--- 1STEP -->
             <div id="one-step">
