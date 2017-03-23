@@ -41,10 +41,12 @@
                 </div>
                 <h2>기본정보</h2>
                 <div class="group">
+                    <input type="hidden" name="master_email" value="{{ $email }}" readonly/>
+                    <input type="hidden" name="master_name" value="{{ $name }}" readonly/>
                     <div class="form-group join category">
                         <label for="location">장소<span class="required">*</span></label>
-                        <input type="text" id="sample6_postcode" placeholder="우편번호">
-                        <input type="button" onclick="sample6_execDaumPostcode()" value="주소 검색"><br>
+                        <input type="text" id="sample6_postcode" name="postcode" placeholder="우편번호">
+                        <input type="button" name="btn" onclick="sample6_execDaumPostcode()" value="주소 검색"><br>
                         <input type="text" name="location" id="sample6_address" placeholder="주소" class="required detail">
                     </div>
                     <div class="form-group join">
@@ -148,7 +150,7 @@
                     </div>
                     <div class="form-group join category">
                         <label for="lesson-tag">태그<span class="required">*</span></label>
-                        <input type="text" id="lesson-tag" class="very-long" placeholder="#레슨 주제_자동_태그"/>
+                        <input type="text" id="lesson-tag" name="inputTag" class="very-long" placeholder="#레슨 주제_자동_태그"/>
                         <textarea class="tag_result" name="lesson-tag" class="required" readonly></textarea>
                     </div>
                     <script>
@@ -158,15 +160,17 @@
                                 var data = $(this).val();
                                 $data = data.trim().replace(/ /g,'_').replace(/[^(가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z0-9|_)]/gi,'');
                                 $tag = '#'+$data;
-                                if( $tag != '#' && $('textarea.tag_result').html().indexOf( $tag ) == -1 ){
+                                $arr = $('textarea.tag_result').text().split('#');
+                                if( $tag != '#' && jQuery.inArray( $data, $arr ) == -1 ){
                                     $(this).next().append($tag);
                                     $result = '';
                                 };
-                                $(this).val('').focus();
+                                if( $arr.length > 10 ){
+                                    $(this).attr('disabled', 'disabled');
+                                }else{
+                                    $(this).val('').focus();
+                                }
                             };
-                            if( document.getElementsByClassName(tag_result).length > 10 ){
-                                $(this).attr('disabled', 'disabled');
-                            }
                         });
                     </script>
                 </div>
@@ -176,7 +180,7 @@
                     <div class="form-group join">
                         <label>이미지 파일<span class="required">*</span></label>
                         <span class="file"><i class="fa fa-paperclip" aria-hidden="true"></i>첨부</span>
-                        <input type="file" id="profile" name="profile" class="required" multiple/>
+                        <input type="file" id="images" name="images[]" class="required" multiple/>
                         <span class="detail">최대 20장</span>
                     </div>
                 </div>
@@ -188,102 +192,79 @@
             </div>
             <!--- 3STEP -->
             <div class="hidden" id="final-step">
-                <h2>개인신상</h2>
-                <div class="group">
-                    <div class="form-group join">
-                        <label for="email">이메일(아이디)<span class="required">*</span></label>
-                        <span name="email01" class="result"></span><span class="result">@</span><span name="email02" class="result"></span>
-                    </div>
-                    <div class="form-group join">
-                        <label for="name">이름<span class="required">*</span></label>
-                        <span name="master_name" class="result"></span>
-                    </div>
-                    <div class="form-group join">
-                        <label for="phone">휴대전화<span class="required">*</span></label>
-                        <span name="phone" class="result"></span>
-                    </div>
-                    <div class="form-group join">
-                        <label for="birth">생년월일</label>
-                        <span name="birth1" class="result"></span><span class="result">년</span>
-                        <span name="birth2" class="result"></span><span class="result">월</span>
-                        <span name="birth3" class="result"></span><span class="result">일</span>
-                    </div>
-                    <div class="form-group join">
-                        <label for="gender">성별<span class="required">*</span></label>
-                        <span name="gender" class="result"></span><span class="result">성</span>
-                    </div>
-                </div>
                 <h2>카테고리</h2>
                 <div class="group">
-                    <div class="form-group join career">
-                        <label for="category">카테고리분류<span class="required">*</span></label>
+                    <div class="form-group join category">
+                        <label for="category" name="category-label">카테고리분류<span class="required">*</span></label>
                         <span name="category[]" class="result"></span>
                         <span name="category-detail[]" class="result"></span>
                     </div>
                 </div>
-                <h2>장소 및 일정</h2>
+                <h2>기본정보</h2>
                 <div class="group">
-                    <div class="form-group join">
-                        <label for="location">주 활동 장소<span class="required">*</span></label>
-                        <span name="location[]" class="result"></span>
-                        <span name="location2[]" class="result"></span>
+                    <div class="form-group join category">
+                        <label for="location">장소<span class="required">*</span></label>
+                        <span name="location" class="result"></span>
                     </div>
                     <div class="form-group join">
-                        <label for="date">요일 및 시간<span class="required">*</span></label>
-                        <span name="date[]" class="result"></span>
-                        <span name="date2[]" class="result"></span>
+                        <label for="class">클래스 구분<span class="required">*</span></label>
+                        <span name="class" class="result"></span>
+                        <span class="result"> : 주 </span><span name="howmany_week"></span><span class="result"> 회 / 총 </span><span name="howmany_total"></span><span class="result"> 회</span>
+                    </div>
+                    <div class="form-group join category" name="oneday">
+                        <label for="date" name="date-label">일정<span class="required">*</span></label>
+                        <span name="date-label" class="result"></span>
+                    </div>
+                    <div class="form-group join">
+                        <label for="howmany">인원<span class="required">*</span></label>
+                        <span name="howmany" class="result"></span>
+                        <span class="result">최소 </span><span name="howmany_min" class="result"/></span><span class="result"> 명 ~ 최대 </span><span name="howmany_max" class="result"> 명</span>
+                    </div>
+                    <div class="form-group join">
+                        <label for="cost">비용<span class="required">*</span></label>
+                        <span name="cost" class="result"></span><span class="result">원</span>
                     </div>
                 </div>
-                <h2>Career</h2>
-                <div class="group">
-                    <div class="form-group join career">
-                        <label for="career">경력사항</label>
-                        <span name="career" class="result"></span>
-                    </div>
-                </div>
-                <h2>자기소개</h2>
+                <h2>레슨 소개</h2>
                 <div class="group">
                     <div class="form-group join">
-                        <label for="intro">한줄 소개<span class="required">*</span></label>
-                        <span name="intro" class="result"></span>
+                        <label for="lesson-name">레슨명<span class="required">*</span></label>
+                        <span name="lesson-name" class="result"></span>
                     </div>
                     <div class="form-group join career">
-                        <label for="detail-intro">자기소개<span class="required">*</span></label>
-                        <span name="detail-intro" class="result"></span>
+                        <label for="lesson-intro">레슨 소개<span class="required">*</span></label>
+                        <span name="lesson-intro" class="result"></span>
                     </div>
                     <div class="form-group join career">
-                        <label for="sns">SNS주소</label>
-                        <span class="result">블로그 : </span><span name="sns1" class="result"></span><span><br/></span>
-                        <span class="result">페이스북 : </span><span name="sns2" class="result"></span><span><br/></span>
-                        <span class="result">인스타 : </span><span name="sns3" class="result"></span><span><br/></span>
-                        <span class="result">카카오스토리 : </span><span name="sns4" class="result"></span>
+                        <label for="lesson-goal">목표<span class="required">*</span></label>
+                        <span name="lesson-goal" class="result"></span>
                     </div>
-                </div>
-                <h2>제출 서류</h2>
-                <p class="notice warning">* 유의사항<br/>사업자 등록을 하지 않은 경우, 마스터 승인 60일 내로 사업자 등록 및 통신판매업 신고(면제 제외)를 완료한 후 서류 사본을 아임마스터로 제출해야 합니다. 서류 미제출시 마스터 승인이 자동으로 취소됩니다.<br/><a href="mailto:immaster@platformstory.com">제출처 : immaster@platformstory.com</a></p>
-                <div class="group">
-                    <div class="form-group join">
-                        <label>사업자등록증</label>
-                        <span name="business_docu" class="result"></span>
+                    <div class="form-group join career">
+                        <label for="curriculum">커리큘럼<span class="required">*</span></label>
+                        <span name="curriculum" class="result"></span>
                     </div>
                     <div class="form-group join">
-                        <label>통신판매업신고증</label>
-                        <span name="sales_docu" class="result"></span>
+                        <label for="required">수강요건</label>
+                        <span name="requires" class="result"></span>
                     </div>
                     <div class="form-group join">
-                        <label>통장사본<span class="required">*</span></label>
-                        <span name="bankbook" class="result"></span>
+                        <label for="lesson-ready">준비물</label>
+                        <span name="lesson-ready" class="result"></span>
+                    </div>
+                    <div class="form-group join category">
+                        <label for="lesson-etc[]">포함사항</label>
+                        <span name="lesson-etc[]" class="result"></span>
+                    </div>
+                    <div class="form-group join category">
+                        <label for="lesson-tag">태그<span class="required">*</span></label>
+                        <span name="lesson-tag" class="result"></span>
                     </div>
                 </div>
                 <h2>갤러리</h2>
                 <div class="group">
                     <div class="form-group join">
-                        <label>프로필 사진<span class="required">*</span></label>
-                        <span name="profile" class="result"></span>
-                    </div>
-                    <div class="form-group join">
-                        <label>추가 이미지</label>
-                        <span name="image" class="result"></span>
+                        <label>이미지 파일<span class="required">*</span></label>
+                        <span name="images[]" class="result"></span>
                     </div>
                 </div>
                 <div class="form-group button">

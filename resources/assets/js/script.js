@@ -23,7 +23,7 @@
                         $('nav.form-navi').find('li[name="two-step"]').next().addClass('active');
                         
                         //FinalCheck
-                        $formData = $('form[name="master-form"]').serializeArray();
+                        $formData = $('form.validate').serializeArray();
                         $.each( $formData, function(i, data){
                             if( i == 0 ){
                             }else{
