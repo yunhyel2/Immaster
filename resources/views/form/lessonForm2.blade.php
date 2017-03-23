@@ -3,15 +3,15 @@
 @section('content')
     <div class="shadow"></div>
     <div class="page form">
-        <h1 class="hidden">마스터로 등록하기</h1>
+        <h1 class="hidden">레슨 등록하기</h1>
         <nav class="form-navi">
             <ul>
-                <li class="active" name="one-step"><a href="#">기본정보</a></li>
-                <li name="two-step"><a href="#">레슨소개</a></li>
-                <li name="final-step"><a href="#">등록하기</a></li>
+                <li class="active" name="one-step">기본정보</li>
+                <li name="two-step">레슨소개</li>
+                <li name="final-step">등록하기</li>
             </ul>
         </nav>
-        <form class="validate" name="lesson-form" method="POST" action="{{ url('/master-store') }}" enctype="multipart/form-data">
+        <form class="validate" name="lesson-form" method="POST" action="{{ url('/lesson-store') }}" enctype="multipart/form-data">
             {{ csrf_field() }}
             <!--- 1STEP -->
             <div id="one-step">
@@ -40,6 +40,7 @@
                     </div>
                 </div>
                 <h2>기본정보</h2>
+                <p class="notice warning">※ 유의사항<br/>레슨 시작일은 등록일(오늘)을 기준으로 최소 2주 후 ~ 최대 8주 후 이내로 해주세요.<br/>예시)5월 1일 등록시 가능한 레슨 시작일 : 5월 15일과 6월 26일 사이<br/>레슨 참가자 모집을 위한 시간 확보와 레슨 일정의 취소 또는 변경을 최소화하기 위함이므로 반드시 지켜주세요.</p>
                 <div class="group">
                     <input type="hidden" name="master_email" value="{{ $email }}" readonly/>
                     <input type="hidden" name="master_name" value="{{ $name }}" readonly/>
@@ -136,15 +137,15 @@
                     </div>
                     <div class="form-group join category">
                         <label for="lesson-etc[]">포함사항</label>
-                        <input type="checkbox" id="rental" name="lesson-etc[]"/>
+                        <input type="checkbox" id="rental" name="lesson-etc[]" value="장비대여"/>
                         <label for="rental">장비대여</label>
-                        <input type="checkbox" id="parking" name="lesson-etc[]"/>
+                        <input type="checkbox" id="parking" name="lesson-etc[]" value="주차지원"/>
                         <label for="parking">주차 지원</label>
-                        <input type="checkbox" id="fittingroom" name="lesson-etc[]"/>
+                        <input type="checkbox" id="fittingroom" name="lesson-etc[]" value="탈의실완비"/>
                         <label for="fittingroom">탈의실 완비</label>
-                        <input type="checkbox" id="showerroom" name="lesson-etc[]"/>
+                        <input type="checkbox" id="showerroom" name="lesson-etc[]" value="샤워실완비"/>
                         <label for="showerroom">샤워실 완비</label>
-                        <input type="checkbox" id="car" name="lesson-etc[]"/>
+                        <input type="checkbox" id="car" name="lesson-etc[]" value="차량지원"/>
                         <label for="car">차량지원</label>
                         <input type="text" id="lesson-etc" name="lesson-etc[]" class="detail very-long" placeholder="기타 포함사항이 있다면 적어주세요."/>
                     </div>
@@ -185,8 +186,8 @@
                     </div>
                 </div>
                 <div class="form-group button">
+                    <a href="#" class="btn prev" name="one-step">이전 단계</a>
                     <input type="submit" class="btn next" value="다음 단계" name="two-step"/>
-                    <a class="btn"/>임시저장</a>
                 </div>
             
             </div>
@@ -268,6 +269,7 @@
                     </div>
                 </div>
                 <div class="form-group button">
+                    <a href="#" class="btn prev" name="two-step">이전 단계</a>
                     <input type="submit" class="btn next" value="등록"/>
                     <a href="#" onClick="history.back()" class="btn">취소</a>
                 </div>
