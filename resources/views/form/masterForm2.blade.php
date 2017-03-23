@@ -6,9 +6,9 @@
         <h1 class="hidden">마스터로 등록하기</h1>
         <nav class="form-navi">
             <ul>
-                <li class="active" name="one-step"><a href="#">기본정보</a></li>
-                <li name="two-step"><a href="#">마스터소개</a></li>
-                <li name="final-step"><a href="#">등록하기</a></li>
+                <li class="active" name="one-step">기본정보</li>
+                <li name="two-step">마스터소개</li>
+                <li name="final-step">등록하기</li>
             </ul>
         </nav>
         <form class="validate" name="master-form" method="POST" action="{{ url('/master-store') }}" enctype="multipart/form-data">
@@ -252,8 +252,8 @@
                     </div>
                 </div>
                 <div class="form-group button">
+                    <a href="#" class="btn prev" name="one-step">이전 단계</a>
                     <input type="submit" class="btn next" value="다음 단계" name="two-step"/>
-                    <a class="btn"/>임시저장</a>
                 </div>
             
             </div>
@@ -358,6 +358,7 @@
                     </div>
                 </div>
                 <div class="form-group button">
+                    <a href="#" class="btn prev" name="two-step">이전 단계</a>
                     <input type="submit" class="btn next" value="등록"/>
                     <a href="#" onClick="history.back()" class="btn">취소</a>
                 </div>

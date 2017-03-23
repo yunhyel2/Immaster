@@ -54,6 +54,7 @@ nav.form-navi{
             font-size:12px;
             letter-spacing:-1px;
             font-weight:900;
+            color:#999;
             a{
                 display:inline-block;
                 width:100%;
@@ -63,6 +64,7 @@ nav.form-navi{
                 }
             }
             &.active{
+                color:#333;
                 border-bottom:3px solid orangered;
                 a{
                     color:#333;
@@ -293,6 +295,7 @@ div.page.form{
         }
         &.button{
             text-align:right;
+            position:relative;
             input.btn, a.btn{
                 border:none;
                 font-size:12px;
@@ -308,6 +311,10 @@ div.page.form{
                     color:#fff;
                     font-weight:bold;
                 }
+            }
+            a.prev{
+                position:absolute;
+                left:0;
             }
         }
         &.tot_agree{
