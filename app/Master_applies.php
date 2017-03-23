@@ -4,8 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Masterapplies extends Model
+class Master_applies extends Model
 {
+    protected $table = 'master_applies';
+
     public function categories() {
         return $this->hasMany('App\Applycategory');
     }

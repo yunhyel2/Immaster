@@ -10,4 +10,8 @@ class Server_userprofile extends Model
     public function user() {
         return $this->belongsTo('App\Auth_user');
     }
+
+    public function lessons() {
+        return $this->hasMany('App\Lesson_applies');
+    }
 }

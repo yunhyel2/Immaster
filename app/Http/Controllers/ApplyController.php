@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\UploadedFile;
-use App\Masterapplies; 
-use App\Applycategory;
-use App\Applydate;
-use App\Applylocation;
+use App\Master_applies; 
+use App\Master_applycategory;
+use App\Master_applydate;
+use App\Master_applylocation;
 use App\Server_userprofile;
 use App\Server_lessoncategorycode;
+use App\Lesson_applies;
 
 class ApplyController extends Controller
 {
@@ -52,7 +53,7 @@ class ApplyController extends Controller
         // $request = $request->except(['_method', '_token']);
         // $apply = new Masterapplies($request);
 
-        $apply = new Masterapplies;
+        $apply = new Master_applies;
         $apply->name = $request->input('master_name');
         $apply->phone = $request->input('phone');
         $apply->gender = $request->input('gender');
@@ -129,19 +130,19 @@ class ApplyController extends Controller
         for( $i=0; $i<3; $i++ ) {
             $category_id = Server_lessoncategorycode::where('category', $category[$i])->first()->id;
             // $category_id = 2;
-            $master_category = new Applycategory;
+            $master_category = new Master_applycategory;
             $master_category->apply_id = $apply->id;
             $master_category->category = $category_id;
             $master_category->category_detail = $category_detail[$i];
             $master_category->save();
 
-            $master_location = new Applylocation;
+            $master_location = new Master_applylocation;
             $master_location->apply_id = $apply->id;
             $master_location->location = $location[$i];
             $master_location->location_detail = $location_detail[$i];
             $master_location->save();
 
-            $master_date = new Applydate;
+            $master_date = new Master_applydate;
             $master_date->apply_id = $apply->id;
             $master_date->day = $day[$i];
             $master_date->time = $time[$i];
@@ -161,8 +162,43 @@ class ApplyController extends Controller
     }
 
     public function lessonApplyStore(Request $request) {
-        $status = $request->input('status');
 
+        $lesson = new Lesson_applies;
+
+        $lesson->category = $request->input('category');
+        $lesson->category_detail = $request->input('category-detail');
+        $lesson->postcode = $request->input('postcode');
+        $lesson->location = $request->input('location');
+        $lesson->class = $request->input('class'); // 정규 or 원데이
+        $lesson->howmany_week = $request->input('howmany_week'); //숫자
+        $lesson->howmany_total = $request->input('howmany_total'); //숫자
+        $lesson->howmany = $request->input('howmany'); //1:1 or 그룹 
+        $lesson->howmany_min = $request->input('howmany_min'); //숫자
+        $lesson->howmany_max = $request->input('howmany_max'); //숫자
+        $lesson->cost = $request->input('cost'); //숫자
+        $lesson->lesson_name = $request->input('lesson-name');
+        $lesson->lesson_intro = $request->input('lesson-intro');
+        $lesson->lesson_goal = $request->input('lesson-goal');
+        $lesson->curriculum = $request->input('curriculum');
+        $lesson->required = $request->input('required');
+        $lesson->lesson_ready = $request->input('lesson-ready');
+        $lesson->lesson_etc = $request->input('lesson-etc');
+        $lesson->lesson_tag = $request->input('lesson-tag');
+
+        $status = $request->input('status');
+        // $request = $request->except(['_token', 'image', 'status', 'category']);
+        // $lesson = new Lesson_applies($request);
+        $lesson->save();
+
+        $images = $request->file('images');
+        foreach ($images as $image) {
+            $image = new Lesson_applyimages;
+            $image->image = 'https://s3.ap-northeast-2.amazonaws.com/immaster/' . Storage::put('lesson-apply', $image, 'public');
+            $image->apply_id = $lesson_id;
+            $image->save();
+        }
+        
+        
 
         return view('form.complete')->with('status', $status);
     }

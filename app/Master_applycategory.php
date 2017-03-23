@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Applydate extends Model
+class Master_applycategory extends Model
 {
-    protected $table = 'applydate';
+    protected $table = 'master_applycategory';
     public function master_apply() {
         return $this->belongsTo('App\Masterapplies');
     }

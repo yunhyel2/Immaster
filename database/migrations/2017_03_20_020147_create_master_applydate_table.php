@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateApplycategoryTable extends Migration
+class CreateMasterApplydateTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateApplycategoryTable extends Migration
      */
     public function up()
     {
-        Schema::create('applycategory', function (Blueprint $table) {
+        Schema::create('master_applydate', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('category');
-            $table->string('category_detail');
+            $table->string('day');
+            $table->string('time');
 
             $table->integer('apply_id')->unsigned();
-            $table->foreign('apply_id')->references('id')->on('masterapplies');
+            $table->foreign('apply_id')->references('id')->on('master_applies');
 
             $table->timestamps();
         });

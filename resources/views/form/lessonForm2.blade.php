@@ -11,7 +11,7 @@
                 <li name="final-step"><a href="#">등록하기</a></li>
             </ul>
         </nav>
-        <form class="validate" name="lesson-form" method="POST" action="{{ url('/master-store') }}" enctype="multipart/form-data">
+        <form class="validate" name="lesson-form" method="POST" action="{{ url('/lesson-store') }}" enctype="multipart/form-data">
             {{ csrf_field() }}
             <!--- 1STEP -->
             <div id="one-step">
@@ -19,7 +19,7 @@
                 <div class="group">
                     <div class="form-group join category">
                         <label for="category" name="category-label">카테고리분류<span class="required">*</span></label>
-                        <select id="category" name="category[]" class="required">
+                        <select id="category" name="category" class="required">
                             <option value="리빙/공예">리빙/공예</option>
                             <option value="뷰티/헬스">뷰티/헬스</option>
                             <option value="레포츠">레포츠</option>
@@ -35,7 +35,7 @@
                             <option value="봉사">봉사</option>
                             <option value="연예">연예</option>
                         </select>
-                        <input type="text" name="category-detail[]" class="required detail" placeholder="구체적인 레슨 주제를 입력해주세요."/>
+                        <input type="text" name="category-detail" class="required detail" placeholder="구체적인 레슨 주제를 입력해주세요."/>
                         <span class="example">예시) 디퓨저, 디제잉, 포토샵, 중국어회화</span>
                     </div>
                 </div>
