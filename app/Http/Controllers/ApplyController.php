@@ -14,7 +14,26 @@ use App\Server_lessoncategorycode;
 
 class ApplyController extends Controller
 {
-    
+
+    public function masterCheck(Request $request)
+    {
+        $email = $request->input('email');
+        $name = $request->input('name');
+        $status = $request->input('status');
+
+        $count = Server_userprofile::where('user_login_id', $email)->where('user_name', $name)->count();
+
+        if( $count == 0 ) {
+            return back();
+        } else {
+            if($status == 'lesson') {
+                return view('form.lessonForm2')->with('email', $email)->with('name', $name);
+            } else {
+                return view('form.playForm2')->with('email', $email)->with('name', $name);
+            }
+        }
+    }
+     
     public function masterAgree(Request $request)
     {
         $agree1 = $request->input('agree1');
@@ -131,28 +150,6 @@ class ApplyController extends Controller
         }
 
         return redirect('/');
-    }
-
-
-    public function confirmMaster(Request $request) {
-        $email = $request->input('email');
-        $name = $request->input('name');
-        $status = $request->input('status'); //play or lesson 
-
-        //email & name에 validation 처리할 것 
-        $user = Server_userprofile::where('user_login_id', $email)->where('user_name', $name)->first();
-        if( $user != null ) {
-            
-            if( $status == 'play') {
-                return view('form.palyForm');
-            } else {
-                return view('form.lessonForm');
-            }
-            
-        } else {
-            // 일치하는 이메일 혹은 이름이 없습니다. 
-            return back();
-        }
     }
 
 

@@ -19,6 +19,7 @@ Auth::routes();
 
 Route::post('/master-apply', 'ApplyController@masterAgree');
 Route::post('/master-store', 'ApplyController@masterApplyStore');
+Route::post('/master-check', 'ApplyController@masterCheck');
 
 Route::get('/home', 'HomeController@index');
 Route::get('/master-join', 'MasterController@index');
