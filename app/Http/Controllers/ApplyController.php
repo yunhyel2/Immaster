@@ -226,7 +226,7 @@ class ApplyController extends Controller
 
         // 일정 최대 3개까지 가능! 
         for( $j=1; $j<4; $j++ ) {
-            $date = $request->input('date' . $j);
+            $date = $request->input('date'.$j);
             if( $date ) {
                 $schedule = new Lesson_applyschedule;
                 $schedule->schedule = $j;
@@ -236,8 +236,8 @@ class ApplyController extends Controller
                 $end_m = $request->input('end-minute' . $j);
 
                 if( $request->input('class') == '정규' ) { 
-                    for( $i=0; $i<count($date); $i++ ) {
-                        $schedule->sub_schedule = $i+1;
+                    for( $i=1; $i<count($date); $i++ ) {
+                        $schedule->sub_schedule = $i;
                         $schedule->date = $date[$i];
                         $schedule->start_time = $start_h[$i] . ':' . $start_m[$i]*5;
                         $schedule->end_time = $end_h[$i] . ':' . $end_m[$i]*5;
