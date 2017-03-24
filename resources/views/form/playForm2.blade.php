@@ -50,19 +50,19 @@
                         <input type="button" name="btn" onclick="sample6_execDaumPostcode()" value="주소 검색"><br>
                         <input type="text" name="location" id="sample6_address" placeholder="주소" class="required detail">
                     </div>
-                    <div class="form-group join category date">
-                        <label for="date[]" name="date-label">일정<span class="required">*</span></label>
+                    <div class="form-group join category date" id="oneday-form">
+                        <label for="date1[]" name="date-label">일정<span class="required">*</span></label>
                         <strong class="label">시작날짜</strong>
-                        <input type="text" id="datepicker1" name="date[]" class="required" readonly>
-                        <label for="datepicker1" class="btn"><i class="fa fa-calendar" aria-hidden="true"></i></label>
+                        <input type="text" id="oneday-picker1" name="date1[]" class="required" readonly>
+                        <label for="oneday-picker1" class="btn"><i class="fa fa-calendar" aria-hidden="true"></i></label>
                         <strong class="label">시작시간</strong>
-                        <select name="start-hour[]">
+                        <select name="start-hour1[]">
                             <option value="" selected>시</option>
                             @for($i=0;$i<24;$i++)
                                 <option value="{{$i}}">{{ $i . '시' }}</option>
                             @endfor
                         </select>
-                        <select name="start-minute[]">
+                        <select name="start-minute1[]">
                             <option value="" selected>분</option>
                             @for($i=0;$i<=11;$i++)
                                 <option value="{{$i}}">{{ $i*5 . '분' }}</option>
@@ -70,13 +70,13 @@
                         </select>
                         <span>　~　</span>
                         <strong class="label">종료시간</strong>
-                        <select name="end-hour[]">
+                        <select name="end-hour1[]">
                             <option value="" selected>시</option>
                             @for($i=0;$i<24;$i++)
                                 <option value="{{$i}}">{{ $i . '시' }}</option>
                             @endfor
                         </select>
-                        <select name="end-minute[]">
+                        <select name="end-minute1[]">
                             <option value="" selected>분</option>
                             @for($i=0;$i<=11;$i++)
                                 <option value="{{$i}}">{{ $i*5 . '분' }}</option>
@@ -86,8 +86,8 @@
                     <div class="add-remove">
                         <p class="notice">동일한 주제의 PLAY은 최대 3개까지 등록 가능합니다.</p>
                         <div class="add-del">
-                            <a class="add" href="#"><i class="fa fa-plus" aria-hidden="true"></i>추가</a>
-                            <a class="del" href="#"><i class="fa fa-minus" aria-hidden="true"></i>삭제</a>
+                            <a class="add date oneday" href="#"><i class="fa fa-plus" aria-hidden="true"></i>추가</a>
+                            <a class="del date" href="#"><i class="fa fa-minus" aria-hidden="true"></i>삭제</a>
                         </div>
                     </div>
                     <div class="form-group join">

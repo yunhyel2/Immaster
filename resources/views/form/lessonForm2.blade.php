@@ -56,7 +56,7 @@
                         <label for="oneday">원데이</label>
                         <input type="radio" id="regular" name="class" value="정규" class="required"/>
                         <label for="regular">정규</label>
-                        <span class="detail">주 <input type="text" name="howmany_week" class="small regular-active" disabled/> 회 / 총 <input type="text" name="howmany_total" class="small regular-active" disabled/> 회</span>
+                        <span class="detail">주 <input type="text" name="howmany_week" class="small digits regular-active" disabled/> 회 / 총 <input type="text" name="howmany_total" class="small regular-active digits" disabled/> 회</span>
                         <a class="edit-plan btn hidden">일정편집</a>
                     </div>
                     <script>
@@ -141,9 +141,6 @@
                                     <option value="{{$i}}">{{ $i*5 . '분' }}</option>
                                 @endfor
                             </select>
-                            <span class="regular">
-                                <a href="#" class="regular-add"><i class="fa fa-plus" aria-hidden="true"></i></a>
-                            </span>
                         </span>
                     </div>
                     <div class="add-remove">
