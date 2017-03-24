@@ -9,14 +9,14 @@ class Master_applies extends Model
     protected $table = 'master_applies';
 
     public function categories() {
-        return $this->hasMany('App\Applycategory');
+        return $this->hasMany('App\Master_applycategory');
     }
 
     public function locations() {
-        return $this->hasMany('App\Applylocation');
+        return $this->hasMany('App\Master_applylocation');
     }
 
     public function dates() {
-        return $this->hasMany('App\Applydate');
+        return $this->hasMany('App\Master_applydate');
     }
 }

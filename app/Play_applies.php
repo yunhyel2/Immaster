@@ -15,4 +15,8 @@ class Play_applies extends Model
     public function images() {
         return $this->hasMany('App\Play_applyimages');
     }
+
+    public function schedules() {
+        return $this->hasMany('App\Play_applyschedule');
+    }
 }

@@ -22,13 +22,12 @@ class CreatePlayAppliesTable extends Migration
             $table->integer('howmany_min')->unsigned()->nullable();
             $table->integer('howmany_max')->unsigned()->nullable();
             $table->integer('cost')->unsigned();
-
             $table->string('play_name');
             $table->string('play_intro');
             $table->string('play_ready')->nullable();
             $table->string('play_etc')->nullable();
             $table->string('play_tag');
-
+            
             $table->integer('master_id');
             $table->foreign('master_id')->references('id')->on('server_userprofile');
 

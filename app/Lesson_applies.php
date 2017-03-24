@@ -15,4 +15,8 @@ class Lesson_applies extends Model
     public function images() {
         return $this->hasMany('App\Lesson_applyimages');
     }
+
+    public function schedules() {
+        return $this->hasMany('App\Lesson_applyschedule');
+    }
 }

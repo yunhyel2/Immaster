@@ -5,6 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\UploadedFile;
+
+use App\Http\Requests\MasterApplyRequest;
+use App\Http\Requests\MasterCheckRequest;
+use App\Http\Requests\LessonApplyRequest;
+use App\Http\Requests\PlayApplyRequest;
+
 use App\Master_applies; 
 use App\Master_applycategory;
 use App\Master_applydate;
@@ -13,12 +19,11 @@ use App\Server_userprofile;
 use App\Server_lessoncategorycode;
 use App\Lesson_applies;
 use App\Lesson_applyimages;
+use App\Lesson_applyschedule;
 use App\Play_applies;
 use App\Play_applyimages;
-use App\Http\Requests\MasterApplyRequest;
-use App\Http\Requests\MasterCheckRequest;
-use App\Http\Requests\LessonApplyRequest;
-use App\Http\Requests\PlayApplyRequest;
+use App\Play_applyschedule;
+
 
 class ApplyController extends Controller
 {
@@ -218,6 +223,30 @@ class ApplyController extends Controller
             $apply->save();
         }
 
+        // 일정 최대 3개까지 가능! 
+        for( $j=1; $j<4; $j++ ) {
+            $date = $request->input('date' . $j);
+
+            if( $date ) {
+
+                $schedule = new Lesson_applyschedule;
+                $schedule->schedule = $j;
+                $start_h = $request->input('start-hour' . $j);
+                $start_m = $request->input('start-minute' . $j);
+                $end_h = $request->input('end-hour' . $j);
+                $end_m = $request->input('end-minute' . $j);
+
+                for( $i=0; $i<count($date); $i++ ) {
+                    $schedule->sub_schedule = $i+1;
+                    $schedule->date = $date[$i];
+                    $schedule->start_time = $start_h[$i] . ':' . $start_m[$i];
+                    $schedule->end_time = $end_h[$i] . ':' . $end_m[$i];
+                    $schedule->apply_id = $lesson->id;
+                    $schedule->save();
+                }
+            } 
+        }
+        
         return redirect('/lesson-complete');
     }
 
