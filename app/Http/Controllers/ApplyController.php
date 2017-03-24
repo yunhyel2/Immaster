@@ -223,12 +223,11 @@ class ApplyController extends Controller
             $apply->save();
         }
 
+
         // 일정 최대 3개까지 가능! 
         for( $j=1; $j<4; $j++ ) {
             $date = $request->input('date' . $j);
-
             if( $date ) {
-
                 $schedule = new Lesson_applyschedule;
                 $schedule->schedule = $j;
                 $start_h = $request->input('start-hour' . $j);
