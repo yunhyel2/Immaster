@@ -199,6 +199,19 @@ div.page.form{
                 input, label:not(:first-child), select, span.mrg{
                     margin-top:25px;
                 }
+                span.regular{
+                    margin-left:10px;
+                    a{
+                        color:#333;
+                        transition:all 0.2s;
+                        font-size:15px;
+                        line-height:25px;
+                        &:hover{
+                            color:orangered;
+                        }
+                    }
+
+                }
             }
             &.career{
                 height:120px;
@@ -387,6 +400,20 @@ div.page.form{
                 position:relative;
                 top:1px;
             }
+        }
+    }
+    a.btn{
+        border-radius:5px;
+        font-size:11px;
+        font-weight:bold;
+        background:#333;
+        color:#fff;
+        padding:2px 7px;
+        margin-left:10px;
+        line-height:20px;
+        &:active{
+            position:relative;
+            top:1px;
         }
     }
 }
