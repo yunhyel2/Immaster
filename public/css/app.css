@@ -171,6 +171,12 @@ form.validate {
   margin-top: 50px;
 }
 
+form.validate label.btn {
+  padding: 5px 10px;
+  position: relative;
+  left: -30px;
+}
+
 div.page.form {
   width: 80%;
   max-width: 650px;
@@ -299,6 +305,22 @@ div.page.form div.form-group.join.category {
 
 div.page.form div.form-group.join.category label:first-child {
   line-height: 65px;
+}
+
+div.page.form div.form-group.join.date {
+  position: relative;
+}
+
+div.page.form div.form-group.join.date strong {
+  position: absolute;
+  top: 8px;
+  font-size: 11px;
+  color: #ccc;
+  font-weight: bold;
+}
+
+div.page.form div.form-group.join.date input, div.page.form div.form-group.join.date label:not(:first-child), div.page.form div.form-group.join.date select, div.page.form div.form-group.join.date span.mrg {
+  margin-top: 25px;
 }
 
 div.page.form div.form-group.join.career {
@@ -644,6 +666,46 @@ form[name="master-check"] div.mastercheck {
 
 form[name="master-check"] div.mastercheck div.form-group {
   margin: 0;
+}
+
+div#ui-datepicker-div {
+  font-size: 12px;
+}
+
+div#ui-datepicker-div select {
+  letter-spacing: -1px;
+  font-weight: normal;
+  box-sizing: border-box;
+  width: 55px;
+  margin: 0 5px;
+}
+
+div#ui-datepicker-div select:last-child {
+  width: 45px;
+}
+
+div#ui-datepicker-div div.ui-widget-header {
+  background: #fff;
+  border: none;
+}
+
+div#ui-datepicker-div select {
+  border: none;
+  background: none;
+}
+
+div#ui-datepicker-div .ui-state-default, div#ui-datepicker-div .ui-widget-content .ui-state-default, div#ui-datepicker-div .ui-widget-header .ui-state-default {
+  background: #fff;
+  border: none;
+}
+
+div#ui-datepicker-div a.ui-state-default {
+  letter-spacing: -1px;
+}
+
+div#ui-datepicker-div a.ui-state-default.ui-state-active {
+  color: orangered;
+  font-weight: 900;
 }
 
 div.box {

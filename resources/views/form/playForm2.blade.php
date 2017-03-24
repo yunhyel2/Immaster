@@ -40,7 +40,7 @@
                     </div>
                 </div>
                 <h2>기본정보</h2>
-                <p class="notice warning">※ 유의사항<br/>PLAY 시작일은 등록일(오늘)을 기준으로 최소 2주 후 ~ 최대 8주 후 이내로 해주세요.<br/>예시)5월 1일 등록시 가능한 PLAY 시작일 : 5월 15일과 6월 26일 사이<br/>PLAY 참가자 모집을 위한 시간 확보와 PLAY 일정의 취소 또는 변경을 최소화하기 위함이므로 반드시 지켜주세요.</p>
+                <p class="notice warning">※ 유의사항<br/>PLAY 시작일은 등록일(오늘)을 기준으로 최소 2주 후 ~ 최대 8주 후 이내로만 설정 가능합니다.<br/>PLAY 참가자 모집을 위한 시간 확보 및 PLAY 일정 변경 또는 취소율을 낮추기 위함이니 반드시 지켜주세요.</p>
                 <div class="group">
                     <input type="hidden" name="master_email" value="{{ $email }}" readonly/>
                     <input type="hidden" name="master_name" value="{{ $name }}" readonly/>
@@ -50,30 +50,38 @@
                         <input type="button" name="btn" onclick="sample6_execDaumPostcode()" value="주소 검색"><br>
                         <input type="text" name="location" id="sample6_address" placeholder="주소" class="required detail">
                     </div>
-                    <div class="form-group join category" name="oneday">
-                        <label for="date" name="date-label">일정<span class="required">*</span></label>
-                        <script language="javascript"> 
-                            var today = new Date(); 
-                            console.log(today);
-                            var today = parseInt(today.getFullYear())*365 + parseInt(today.getMonth())*
-                            var start = toyear 
-                            var end = toyear + 70; 
-
-                            document.write("<font size=2><select name=birth1>"); 
-                            document.write("<option value='' selected>Year"); 
-                            for (i=start;i>=end;i--) document.write("<option>"+i); 
-                            document.write("</select>  "); 
-
-                            document.write("<select name=birth2>"); 
-                            document.write("<option value='' selected>Month"); 
-                            for (i=1;i<=12;i++) document.write("<option>"+i); 
-                            document.write("</select>  "); 
-
-                            document.write("<select name=birth3>"); 
-                            document.write("<option value='' selected>Date"); 
-                            for (i=1;i<=31;i++) document.write("<option>"+i); 
-                            document.write("</select>  </font>"); 
-                        </script>
+                    <div class="form-group join category date">
+                        <label for="date[]" name="date-label">일정<span class="required">*</span></label>
+                        <strong class="label">시작날짜</strong>
+                        <input type="text" id="datepicker1" name="date[]" class="required" readonly>
+                        <label for="datepicker1" class="btn"><i class="fa fa-calendar" aria-hidden="true"></i></label>
+                        <strong class="label">시작시간</strong>
+                        <select name="start-hour[]">
+                            <option value="" selected>시</option>
+                            @for($i=0;$i<24;$i++)
+                                <option value="{{$i}}">{{ $i . '시' }}</option>
+                            @endfor
+                        </select>
+                        <select name="start-minute[]">
+                            <option value="" selected>분</option>
+                            @for($i=0;$i<=11;$i++)
+                                <option value="{{$i}}">{{ $i*5 . '분' }}</option>
+                            @endfor
+                        </select>
+                        <span>　~　</span>
+                        <strong class="label">종료시간</strong>
+                        <select name="end-hour[]">
+                            <option value="" selected>시</option>
+                            @for($i=0;$i<24;$i++)
+                                <option value="{{$i}}">{{ $i . '시' }}</option>
+                            @endfor
+                        </select>
+                        <select name="end-minute[]">
+                            <option value="" selected>분</option>
+                            @for($i=0;$i<=11;$i++)
+                                <option value="{{$i}}">{{ $i*5 . '분' }}</option>
+                            @endfor
+                        </select>
                     </div>
                     <div class="add-remove">
                         <p class="notice">동일한 주제의 PLAY은 최대 3개까지 등록 가능합니다.</p>
@@ -118,15 +126,15 @@
                     </div>
                     <div class="form-group join category">
                         <label for="play-etc[]">포함사항</label>
-                        <input type="checkbox" id="rental" name="play-etc[]"/>
+                        <input type="checkbox" id="rental" name="play-etc[]" value="장비대여"/>
                         <label for="rental">장비대여</label>
-                        <input type="checkbox" id="parking" name="play-etc[]"/>
+                        <input type="checkbox" id="parking" name="play-etc[]"value="주차 지원"/>
                         <label for="parking">주차 지원</label>
-                        <input type="checkbox" id="fittingroom" name="play-etc[]"/>
+                        <input type="checkbox" id="fittingroom" name="play-etc[]"value="탈의실 완비"/>
                         <label for="fittingroom">탈의실 완비</label>
-                        <input type="checkbox" id="showerroom" name="play-etc[]"/>
+                        <input type="checkbox" id="showerroom" name="play-etc[]"value="샤워실 완비"/>
                         <label for="showerroom">샤워실 완비</label>
-                        <input type="checkbox" id="car" name="play-etc[]"/>
+                        <input type="checkbox" id="car" name="play-etc[]"value="차량지원"/>
                         <label for="car">차량지원</label>
                         <input type="text" id="play-etc" name="play-etc[]" class="detail very-long" placeholder="기타 포함사항이 있다면 적어주세요."/>
                     </div>
@@ -188,9 +196,9 @@
                         <label for="location">장소<span class="required">*</span></label>
                         <span name="location" class="result"></span>
                     </div>
-                    <div class="form-group join category" name="oneday">
-                        <label for="date" name="date-label">일정<span class="required">*</span></label>
-                        <span name="date-label" class="result"></span>
+                    <div class="form-group join category" name="datepicker">
+                        <label for="date">일정<span class="required">*</span></label>
+                        <span name="date[]" class="result"></span>
                     </div>
                     <div class="form-group join">
                         <label for="howmany">인원<span class="required">*</span></label>
@@ -247,6 +255,8 @@
             <a id="close" href="#">[닫기]</a>
         </div>
     </div>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
     <script type="text/javascript" src="/jquery.validation.1.15.0/jquery.validate.js"></script>
     <script type="text/javascript" src="/jquery.validation.1.15.0/messages_ko.min.js"></script>
     <script type="text/javascript" src="/jquery.validation.1.15.0/additional-methods.js"></script>
