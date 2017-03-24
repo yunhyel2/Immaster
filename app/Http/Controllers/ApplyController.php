@@ -235,14 +235,24 @@ class ApplyController extends Controller
                 $end_h = $request->input('end-hour' . $j);
                 $end_m = $request->input('end-minute' . $j);
 
-                for( $i=0; $i<count($date); $i++ ) {
-                    $schedule->sub_schedule = $i+1;
-                    $schedule->date = $date[$i];
-                    $schedule->start_time = $start_h[$i] . ':' . $start_m[$i];
-                    $schedule->end_time = $end_h[$i] . ':' . $end_m[$i];
+                if( $request->input('class') == '정규' ) { 
+                    for( $i=0; $i<count($date); $i++ ) {
+                        $schedule->sub_schedule = $i+1;
+                        $schedule->date = $date[$i];
+                        $schedule->start_time = $start_h[$i] . ':' . $start_m[$i]*5;
+                        $schedule->end_time = $end_h[$i] . ':' . $end_m[$i]*5;
+                        $schedule->apply_id = $lesson->id;
+                        $schedule->save();
+                    }
+                } else {
+                    $schedule->sub_schedule = 1;
+                    $schedule->date = $date[0];
+                    $schedule->start_time = $start_h[0] . ':' . $start_m[0]*5;
+                    $schedule->end_time = $end_h[0] . ':' . $end_m[0]*5;
                     $schedule->apply_id = $lesson->id;
                     $schedule->save();
                 }
+                
             } 
         }
         
