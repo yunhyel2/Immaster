@@ -40,7 +40,7 @@
                     </div>
                 </div>
                 <h2>기본정보</h2>
-                <p class="notice warning">※ 유의사항<br/>레슨 시작일은 등록일(오늘)을 기준으로 최소 2주 후 ~ 최대 8주 후 이내로 해주세요.<br/>예시)5월 1일 등록시 가능한 레슨 시작일 : 5월 15일과 6월 26일 사이<br/>레슨 참가자 모집을 위한 시간 확보와 레슨 일정의 취소 또는 변경을 최소화하기 위함이므로 반드시 지켜주세요.</p>
+                <p class="notice warning">※ 유의사항<br/>레슨 시작일은 등록일(오늘)을 기준으로 최소 2주 후 ~ 최대 8주 후 이내로만 설정 가능합니다.<br/>레슨 참가자 모집을 위한 시간 확보 및 레슨 일정 변경 또는 취소율을 낮추기 위함이니 반드시 지켜주세요.</p>
                 <div class="group">
                     <input type="hidden" name="master_email" value="{{ $email }}" readonly/>
                     <input type="hidden" name="master_name" value="{{ $name }}" readonly/>
@@ -52,29 +52,101 @@
                     </div>
                     <div class="form-group join">
                         <label for="class">클래스 구분<span class="required">*</span></label>
-                        <input type="radio" id="oneday" name="class" value="원데이" class="required"/>
+                        <input type="radio" id="oneday" name="class" value="원데이" class="required" checked="checked"/>
                         <label for="oneday">원데이</label>
                         <input type="radio" id="regular" name="class" value="정규" class="required"/>
                         <label for="regular">정규</label>
-                        <span class="detail">주 <input type="text" name="howmany_week" class="small regular-active" disabled/> 회 / 총 <input type="text" name="howmany_total" class="small regular-active" disabled/> 회</span>
+                        <span class="detail">주 <input type="text" name="howmany_week" class="small regular-active" readonly/> 회 / 총 <input type="text" name="howmany_total" class="small regular-active" readonly/> 회</span>
                     </div>
                     <script>
                         $('input#regular').click(function(){
-                            $('input.regular-active').removeAttr('disabled');
+                            $('div#oneday-form').addClass('hidden').next().removeClass('hidden');
+                            $('a.add.date').removeClass('oneday').addClass('regular');
+                            $('div.date:not(#oneday-form):not(#regular-form)').remove();
                         });
                         $('input#oneday').click(function(){
-                            $('input.regular-active').attr('disabled', 'disabled');
+                            $('div#regular-form').addClass('hidden').prev().removeClass('hidden');
+                            $('a.add.date').removeClass('regular').addClass('oneday');
+                            $('div.date:not(#oneday-form):not(#regular-form)').remove();
                         });
                     </script>
-                    <div class="form-group join category" name="oneday">
-                        <label for="date" name="date-label">일정<span class="required">*</span></label>
-
+                    <div class="form-group join category date" id="oneday-form">
+                        <label for="date[]" name="oneday-label">일정<span class="required">*</span></label>
+                        <strong class="label">날짜</strong>
+                        <input type="text" id="oneday-picker1" name="date[]" class="required" readonly>
+                        <label for="oneday-picker1" class="btn"><i class="fa fa-calendar" aria-hidden="true"></i></label>
+                        <strong class="label">시작시간</strong>
+                        <select name="start-hour[]">
+                            <option value="" selected>시</option>
+                            @for($i=0;$i<24;$i++)
+                                <option value="{{$i}}">{{ $i . '시' }}</option>
+                            @endfor
+                        </select>
+                        <select name="start-minute[]">
+                            <option value="" selected>분</option>
+                            @for($i=0;$i<=11;$i++)
+                                <option value="{{$i}}">{{ $i*5 . '분' }}</option>
+                            @endfor
+                        </select>
+                        <span>　~　</span>
+                        <strong class="label">종료시간</strong>
+                        <select name="end-hour[]">
+                            <option value="" selected>시</option>
+                            @for($i=0;$i<24;$i++)
+                                <option value="{{$i}}">{{ $i . '시' }}</option>
+                            @endfor
+                        </select>
+                        <select name="end-minute[]">
+                            <option value="" selected>분</option>
+                            @for($i=0;$i<=11;$i++)
+                                <option value="{{$i}}">{{ $i*5 . '분' }}</option>
+                            @endfor
+                        </select>
+                    </div>
+                    <div class="form-group join category date hidden" id="regular-form">
+                        <label for="date[]" name="regular-label">일정<span class="required">*</span></label>
+                        <span name="regular-count" style="clear:both;">
+                            <strong class="label">날짜</strong>
+                            <input type="text" id="regular-picker1" name="date[]" class="required" readonly>
+                            <label for="regular-picker1" class="btn"><i class="fa fa-calendar" aria-hidden="true"></i></label>
+                            <strong class="label">시작시간</strong>
+                            <select name="start-hour[]">
+                                <option value="" selected>시</option>
+                                @for($i=0;$i<24;$i++)
+                                    <option value="{{$i}}">{{ $i . '시' }}</option>
+                                @endfor
+                            </select>
+                            <select name="start-minute[]">
+                                <option value="" selected>분</option>
+                                @for($i=0;$i<=11;$i++)
+                                    <option value="{{$i}}">{{ $i*5 . '분' }}</option>
+                                @endfor
+                            </select>
+                            <span>　~　</span>
+                            <strong class="label">종료시간</strong>
+                            <select name="end-hour[]">
+                                <option value="" selected>시</option>
+                                @for($i=0;$i<24;$i++)
+                                    <option value="{{$i}}">{{ $i . '시' }}</option>
+                                @endfor
+                            </select>
+                            <select name="end-minute[]">
+                                <option value="" selected>분</option>
+                                @for($i=0;$i<=11;$i++)
+                                    <option value="{{$i}}">{{ $i*5 . '분' }}</option>
+                                @endfor
+                            </select>
+                            <span class="regular">
+                                <a href="#" class="regular-add"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                                <a href="#" class="regular-del"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                            </span>
+                        </span>
                     </div>
                     <div class="add-remove">
                         <p class="notice">동일한 커리큘럼의 레슨은 최대 3개까지 등록 가능합니다.</p>
                         <div class="add-del">
-                            <a class="add" href="#"><i class="fa fa-plus" aria-hidden="true"></i>추가</a>
-                            <a class="del" href="#"><i class="fa fa-minus" aria-hidden="true"></i>삭제</a>
+                            <a class="add date oneday" href="#"><i class="fa fa-plus" aria-hidden="true"></i>추가</a>
+                            <a class="del date" href="#"><i class="fa fa-minus" aria-hidden="true"></i>삭제</a>
                         </div>
                     </div>
                     <div class="form-group join">
@@ -213,8 +285,8 @@
                         <span class="result"> : 주 </span><span name="howmany_week"></span><span class="result"> 회 / 총 </span><span name="howmany_total"></span><span class="result"> 회</span>
                     </div>
                     <div class="form-group join category" name="oneday">
-                        <label for="date" name="date-label">일정<span class="required">*</span></label>
-                        <span name="date-label" class="result"></span>
+                        <label for="date">일정<span class="required">*</span></label>
+                        <span name="date[]" class="result"></span>
                     </div>
                     <div class="form-group join">
                         <label for="howmany">인원<span class="required">*</span></label>
@@ -284,6 +356,8 @@
             <a id="close" href="#">[닫기]</a>
         </div>
     </div>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
     <script type="text/javascript" src="/jquery.validation.1.15.0/jquery.validate.js"></script>
     <script type="text/javascript" src="/jquery.validation.1.15.0/messages_ko.min.js"></script>
     <script type="text/javascript" src="/jquery.validation.1.15.0/additional-methods.js"></script>

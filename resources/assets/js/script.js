@@ -1,4 +1,3 @@
-
 //Validation
     jQuery.validator.setDefaults({
         debug: true,
@@ -79,11 +78,17 @@
         $(this).prev('span.fileName').html('파일명 : '+fileName);
         $('div#final-step').find('span[name="'+$name+'"]').html('파일명 : '+fileName);
     });
-    $('a.add').on('click', function(e){
+    $('a.prev').on('click', function(e){
+        $name = $(this).attr('name');
+        $('div#'+$name).removeClass('hidden').next().addClass('hidden');
+        $('li[name="'+$name+'"]').addClass('active').next().removeClass('active');
+    });
+    $('a.add:not(.date)').on('click', function(e){
         e.preventDefault();
         $content = $(this).parents('div.add-remove').prev('.form-group').html();
         $name = $(this).parents('div.add-remove').prev('.form-group').find('label').attr('name');
-        if( document.getElementsByName($name).length < 3 ){
+        $count = document.getElementsByName($name).length;
+        if( $count < 3 ){
             if( $(this).parents('div.add-remove').prev('.form-group').hasClass('category') ){
                 $(this).parents('div.add-remove').prev('.form-group').after('<div class="form-group join category" style="clear:both;">'+$content+'</div>');
             }else{
@@ -98,11 +103,52 @@
             $(this).parents('div.add-remove').prev('.form-group').remove();
         };
     });
-    $('a.prev').on('click', function(e){
-        $name = $(this).attr('name');
-        $('div#'+$name).removeClass('hidden').next().addClass('hidden');
-        $('li[name="'+$name+'"]').addClass('active').next().removeClass('active');
+
+//Date-add
+    $('a.add.date').on('click', function(e){
+        e.preventDefault();
+        if( $(this).hasClass('oneday') ){
+            $content = $('div#oneday-form').html();
+            $name = $('div#oneday-form').find('label').attr('name');
+        }else{
+            $content = $('div#regular-form').html();
+            $name = $('div#regular-form').find('label').attr('name');
+        };
+        $count = document.getElementsByName($name).length;
+        console.log($count);
+        if( $count < 3 ){
+            if( $(this).hasClass('oneday') ){
+                $newId = 'oneday-picker' + ( $count+1 );
+                $content = $content.replace( /oneday-picker1/g , $newId );
+            }else{
+                $newId = 'regular-picker' + ( $count+1 );
+                $content = $content.replace( /regular-picker1/g , $newId );
+            }
+            $(this).parents('div.add-remove').prev('.form-group').after('<div class="form-group join category date" style="clear:both;">'+$content+'</div>');
+        };
     });
+//Regular-add-del
+    $('a.regular-add').click(function(e){
+        e.preventDefault();
+        $count = document.getElementsByName('regular-count').length;
+        if( $count <8 ){
+            $content = $(this).parent().parent().html();
+            $newId = 'regular-picker' + ( $count+1 );
+            $content = $content.replace( /regular-picker1/g , $newId );
+            $(this).parents('div.date').append('<span name="regular-count" style="clear:both;">'+$content+'</span>');
+            $(this).parents('div.date').find('span:last-child strong').remove();
+            $(this).parents('div.date span[name="regular-count"]:not(:nth-child(2))').find('a.regular-add').remove();
+            $(this).parents('div.date').animate({
+                height : '+=64'
+            });
+            
+        }
+    });
+    $('a.regular-del').click(function(e){
+        e.preventDefault();
+        $(this).parents('span[name="regular-count"]').remove();
+    });
+
 //MODAL
     $('a.example').on('click', function(e){
         e.preventDefault();
@@ -115,4 +161,27 @@
         $('div#modal').hide();
         $('div.shadow').hide();
         $('a.example').focus();
+    });
+//DatePicker
+    $target ='';
+    for($i=1;$i<=24;$i++){
+        $target = $target + ', #regular-picker' + $i;
+    };
+    $(document).on('click', '#oneday-picker1, #oneday-picker2, #oneday-picker3'+$target , function () {
+        $(this).removeClass('hasDatepicker').datepicker({
+            dateFormat: 'yy-mm-dd',
+            prevText: '이전 달',
+            nextText: '다음 달',
+            monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+            monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+            dayNames: ['일','월','화','수','목','금','토'],
+            dayNamesShort: ['일','월','화','수','목','금','토'],
+            dayNamesMin: ['일','월','화','수','목','금','토'],
+            showMonthAfterYear: true,
+            changeMonth: true,
+            changeYear: true,
+            yearSuffix: '년',
+            minDate: 14,
+            maxDate: 56
+        });
     });

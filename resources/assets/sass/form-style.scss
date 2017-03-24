@@ -76,6 +76,11 @@ nav.form-navi{
 form.validate{
     clear:both;
     margin-top:50px;
+    label.btn{
+        padding:5px 10px;
+        position:relative;
+        left:-30px;
+    }
 }
 div.page.form{
     width:80%;
@@ -180,6 +185,19 @@ div.page.form{
                 height:65px;
                 label:first-child{
                     line-height:65px;
+                }
+            }
+            &.date{
+                position:relative;
+                strong{
+                    position:absolute;
+                    top:8px;
+                    font-size:11px;
+                    color:#ccc;
+                    font-weight:bold;
+                }
+                input, label:not(:first-child), select, span.mrg{
+                    margin-top:25px;
                 }
             }
             &.career{
@@ -471,6 +489,39 @@ form[name="master-check"]{
         padding-bottom:50px;
         div.form-group{
             margin:0;
+        }
+    }
+}
+
+div#ui-datepicker-div{
+    font-size:12px;
+    select{
+        letter-spacing:-1px;
+        font-weight:normal;
+        box-sizing:border-box;
+        width:55px;
+        margin:0 5px;
+        &:last-child{
+            width:45px;
+        }
+    }
+    div.ui-widget-header{
+        background:#fff;
+        border:none;
+    }
+    select{
+        border:none;
+        background:none;
+    }
+    .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default{
+        background:#fff;
+        border:none;
+    }
+    a.ui-state-default{
+        letter-spacing:-1px;
+        &.ui-state-active{
+            color:orangered;
+            font-weight:900;
         }
     }
 }
