@@ -17,18 +17,19 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::post('/master-apply', 'ApplyController@masterAgree');
+Route::get('/master-apply', 'ApplyController@applyIndex');
+Route::get('/lesson-apply', 'ApplyController@applyIndex');
+Route::get('/play-apply', 'ApplyController@applyIndex');
+
+Route::post('/master-agree', 'ApplyController@masterAgree');
+Route::post('/class-create', 'ApplyController@masterCheck');
+Route::get('/master-create', 'ApplyController@masterCreate');
+
 Route::post('/master-store', 'ApplyController@masterApplyStore');
-Route::post('/master-check', 'ApplyController@masterCheck');
 Route::post('/lesson-store', 'ApplyController@lessonApplyStore');
+Route::post('/play-store', 'ApplyController@playApplyStore');
+Route::get('/master-complete', 'ApplyController@complete');
+Route::get('/lesson-complete', 'ApplyController@complete');
+Route::get('/play-complete', 'ApplyController@complete');
 
 Route::get('/home', 'HomeController@index');
-Route::get('/master-join', 'MasterController@index');
-Route::get('/master-join2', 'MasterController@create');
-Route::get('/master-join3', 'MasterController@complete');
-Route::get('/lesson-join', 'MasterController@index');
-Route::get('/lesson-join2', 'MasterController@create');
-Route::get('/lesson-join3', 'MasterController@complete');
-Route::get('/play-join', 'MasterController@index');
-Route::get('/play-join2', 'MasterController@create');
-Route::get('/play-join3', 'MasterController@complete');

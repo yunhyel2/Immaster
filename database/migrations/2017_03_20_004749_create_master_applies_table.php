@@ -36,7 +36,7 @@ class CreateMasterAppliesTable extends Migration
             $table->string('sale');
             $table->string('sale_docu')->nullable();
             $table->string('sale_name')->nullable();
-            $table->string('bankbook_docu')->nullable();
+            $table->string('bankbook_docu');
             $table->string('bankbook_name');
 
             $table->string('profile_image');

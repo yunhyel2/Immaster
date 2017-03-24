@@ -19,7 +19,7 @@
                 <div class="group">
                     <div class="form-group join category">
                         <label for="category" name="category-label">카테고리분류<span class="required">*</span></label>
-                        <select id="category" name="category[]" class="required">
+                        <select id="category" name="category" class="required">
                             <option value="리빙/공예">리빙/공예</option>
                             <option value="뷰티/헬스">뷰티/헬스</option>
                             <option value="레포츠">레포츠</option>
@@ -35,7 +35,7 @@
                             <option value="봉사">봉사</option>
                             <option value="연예">연예</option>
                         </select>
-                        <input type="text" name="category-detail[]" class="required detail" placeholder="구체적인 PLAY 주제를 입력해주세요."/>
+                        <input type="text" name="category-detail" class="required detail" placeholder="구체적인 PLAY 주제를 입력해주세요."/>
                         <span class="example">예시) 직장인 볼링, 서울 근교 산책, 스노우보드</span>
                     </div>
                 </div>
@@ -178,8 +178,8 @@
                 <div class="group">
                     <div class="form-group join category">
                         <label for="category" name="category-label">카테고리분류<span class="required">*</span></label>
-                        <span name="category[]" class="result"></span>
-                        <span name="category-detail[]" class="result"></span>
+                        <span name="category" class="result"></span>
+                        <span name="category-detail" class="result"></span>
                     </div>
                 </div>
                 <h2>기본정보</h2>

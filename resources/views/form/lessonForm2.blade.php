@@ -197,8 +197,8 @@
                 <div class="group">
                     <div class="form-group join category">
                         <label for="category" name="category-label">카테고리분류<span class="required">*</span></label>
-                        <span name="category[]" class="result"></span>
-                        <span name="category-detail[]" class="result"></span>
+                        <span name="category" class="result"></span>
+                        <span name="category-detail" class="result"></span>
                     </div>
                 </div>
                 <h2>기본정보</h2>

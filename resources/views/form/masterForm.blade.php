@@ -3,7 +3,7 @@
 @section('content')
     <div class="page form">
         <h1>마스터 등록</h1>
-        <form class="validate master-form" name="master-form" method="POST" action="{{ url('/master-apply') }}">
+        <form class="validate master-form" name="master-form" method="POST" action="{{ url('/master-agree') }}">
             {{ csrf_field() }}
             <div class="form-group tot_agree">
                 <input type="radio" id="totalAgree">
