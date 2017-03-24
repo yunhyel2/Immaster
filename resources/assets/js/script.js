@@ -111,69 +111,44 @@
             $content = $('div#oneday-form').html();
             $name = $('div#oneday-form').find('label').attr('name');
         }else{
-            $content = $('div#regular-form').find('span[name="regular-count"]').html();
-            $content = '<label for="date1[]" name="regular-label">일정<span class="required">*</span></label><span name="regular-count" style="clear:both;">' + $content + '</span>'
+            $content = $('div#regular-form').html();
             $name = $('div#regular-form').find('label').attr('name');
             $tot_count = document.getElementsByName('regular-count').length;
+            $reg_count = $('div#regular-form span[name="regular-count"]').length;
         };
         $count = document.getElementsByName($name).length;
         if( $count < 3 ){
             if( $(this).hasClass('oneday') ){
                 $newId = 'oneday-picker' + ( $count+1 );
                 $content = $content.replace( /oneday-picker1/g , $newId ).replace( /1\[]/g, ($count+1)+'[]' );
+                $(this).parents('div.add-remove').prev('.form-group').after('<div class="form-group join category date" style="clear:both;">'+$content+'</div>');
             }else{
-                $newId = 'regular-picker' + ( $tot_count+1 );
-                $content = $content.replace( /regular-picker1/g , $newId ).replace( /1\[]/g, ($count+1)+'[]' );
+                for($i=1;$i<=$reg_count;$i++){
+                    $newId = 'regular-picker' + ( $tot_count+$i );
+                    $content = $content.replace( new RegExp('regular-picker'+$i ,'gi') , $newId ).replace( /1\[]/g, ($count+1)+'[]' );
+                };
+                $(this).parents('div.add-remove').prev('.form-group').after('<div class="form-group join category date" style="clear:both;height:'+60*$reg_count+'px">'+$content+'</div>');
             }
-            $(this).parents('div.add-remove').prev('.form-group').after('<div class="form-group join category date" style="clear:both;">'+$content+'</div>');
         };
     });
 //Edit-plan
     $('a.edit-plan').on('click', function(e){
         e.preventDefault();
         $count = $('input[name="howmany_total"]').val();
-        $content = $('div#regular-form').find('span[name="regular-count"]').html();
-        $content = $content.replace( '<a href="#" class="regular-add"><i class="fa fa-plus" aria-hidden="true"></i></a>' , '<a href="#" class="regular-del"><i class="fa fa-trash" aria-hidden="true"></i></a>' );
-        for($i=1;$i<=$count;$i++){
-            console.log($count);
-            $newId = 'regular-picker' + ( $i+1 );
-            $content = $content.replace( /regular-picker1/g , $newId );
-            console.log($count);
-            $('div#regular-form').append('<span name="regular-count" style="clear:both;">'+$content+'</span>');
-            $('div#regular-form').find('span:last-child strong').remove();
-            $('div#regular-form').animate({
-                height : '+=60'
+        if( $count == '' ){
+            alert('입력해주세요!');
+        }else{
+            $('div#regular-form span.add-items').remove();
+            $org_content = $('div#regular-form').find('span[name="regular-count"]').eq(0).html();
+            for($i=1;$i<$count;$i++){
+                $newId = 'regular-picker' + ( $i+1 );
+                $content = $org_content.replace( /regular-picker1/g , $newId );
+                $('div#regular-form').append('<span name="regular-count" class="add-items" style="clear:both;">'+$content+'</span>');
+                $('div#regular-form').find('span:last-child strong').remove();
+            }
+            $('div.date').animate({
+                height : 60*$count
             });
-        }
-    });
-//Regular-add-del
-    $(document).on('click', 'a.regular-add', function(e){
-        e.preventDefault();
-        $tot_count = document.getElementsByName('regular-count').length;
-        console.log($tot_count);
-        $count = $(this).parents('div.date').children('span[name="regular-count"]').length;
-        $nth = $(this).parents('div.date').find('input').attr('id');
-        if( $count < 8 ){
-            $content = $(this).parent().parent().html();
-            $content = $content.replace( '<a href="#" class="regular-add"><i class="fa fa-plus" aria-hidden="true"></i></a>' , '<a href="#" class="regular-del"><i class="fa fa-trash" aria-hidden="true"></i></a>' );
-            $newId = 'regular-picker' + ( $tot_count+1 );
-            $content = $content.replace( new RegExp($nth,'gi') , $newId );
-            $(this).parents('div.date').append('<span name="regular-count" style="clear:both;">'+$content+'</span>');
-            $(this).parents('div.date').find('span:last-child strong').remove();
-            $(this).parents('div.date').animate({
-                height : '+=60'
-            });
-        }
-    });
-    $(document).on('click', 'a.regular-del', function(e){
-        e.preventDefault();
-        $count = document.getElementsByName('regular-count').length;
-        console.log($count);
-        if( $count > 1 ){
-            $(this).parents('div.date').animate({
-                height : '-=60'
-            });
-            $(this).parents('span[name="regular-count"]').remove();
         }
     });
 
