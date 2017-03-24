@@ -323,6 +323,22 @@ div.page.form div.form-group.join.date input, div.page.form div.form-group.join.
   margin-top: 25px;
 }
 
+div.page.form div.form-group.join.date span.regular {
+  margin-left: 10px;
+}
+
+div.page.form div.form-group.join.date span.regular a {
+  color: #333;
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
+  font-size: 15px;
+  line-height: 25px;
+}
+
+div.page.form div.form-group.join.date span.regular a:hover {
+  color: orangered;
+}
+
 div.page.form div.form-group.join.career {
   height: 120px;
   line-height: 28px;
@@ -544,6 +560,22 @@ div.page.form div.add-del a:hover {
 }
 
 div.page.form div.add-del a:active {
+  position: relative;
+  top: 1px;
+}
+
+div.page.form a.btn {
+  border-radius: 5px;
+  font-size: 11px;
+  font-weight: bold;
+  background: #333;
+  color: #fff;
+  padding: 2px 7px;
+  margin-left: 10px;
+  line-height: 20px;
+}
+
+div.page.form a.btn:active {
   position: relative;
   top: 1px;
 }
