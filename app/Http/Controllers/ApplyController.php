@@ -226,35 +226,29 @@ class ApplyController extends Controller
         for( $j=1; $j<4; $j++ ) {
             $date = $request->input('date'.$j);
             if( $date ) {
-                $schedule = new Lesson_applyschedule;
-                $schedule->schedule = $j;
-                $start_h = $request->input('start-hour' . $j);
-                $start_m = $request->input('start-minute' . $j);
-                $end_h = $request->input('end-hour' . $j);
-                $end_m = $request->input('end-minute' . $j);
-
                 if( $request->input('class') == '정규' ) { 
-                    // $key = array_keys( $date, end($date));
-                    $keys = array_keys($date);
-                    $key_min = min($keys);
-                    $key_max = max($keys);
-                    $k = 1;
-                    for( $i=$key_min; $i<= $key_max; $i++ ) {
-                    // $total = $request->input('howmany_total');
-                    // for( $i=0; $i<$total; $i++ ) {
-                        // if( array_key_exists( $i, $date ) ) {
-                        //     if( $date[$i] ) {
-                                $schedule->sub_schedule = $i+1;
-                                $schedule->date = $date[$i];
-                                $schedule->start_time = $start_h[$i] . ':' . $start_m[$i]*5;
-                                $schedule->end_time = $end_h[$i] . ':' . $end_m[$i]*5;
-                                $schedule->apply_id = $lesson->id;
-                                $schedule->save();
-                                // $k++;
-                        //     }
-                        // }
+                    $total = $request->input('howmany_total');
+                    for( $i=0; $i<$total; $i++ ) {
+                        $schedule = new Lesson_applyschedule;
+                        $schedule->schedule = $j;
+                        $start_h = $request->input('start-hour' . $j);
+                        $start_m = $request->input('start-minute' . $j);
+                        $end_h = $request->input('end-hour' . $j);
+                        $end_m = $request->input('end-minute' . $j);
+                        $schedule->sub_schedule = $i+1;
+                        $schedule->date = $date[$i];
+                        $schedule->start_time = $start_h[$i] . ':' . $start_m[$i]*5;
+                        $schedule->end_time = $end_h[$i] . ':' . $end_m[$i]*5;
+                        $schedule->apply_id = $lesson->id;
+                        $schedule->save();
                     }
                 } else {
+                    $schedule = new Lesson_applyschedule;
+                    $schedule->schedule = $j;
+                    $start_h = $request->input('start-hour' . $j);
+                    $start_m = $request->input('start-minute' . $j);
+                    $end_h = $request->input('end-hour' . $j);
+                    $end_m = $request->input('end-minute' . $j);
                     $schedule->sub_schedule = 1;
                     $schedule->date = $date[0];
                     $schedule->start_time = $start_h[0] . ':' . $start_m[0]*5;
@@ -262,7 +256,6 @@ class ApplyController extends Controller
                     $schedule->apply_id = $lesson->id;
                     $schedule->save();
                 }
-                
             } 
         }
         
