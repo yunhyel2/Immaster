@@ -66,6 +66,8 @@
                             $('div#oneday-form').addClass('hidden').next().removeClass('hidden');
                             $('a.add.date').removeClass('oneday').addClass('regular');
                             $('div.date:not(#oneday-form):not(#regular-form)').remove();
+                            $('div#oneday-form').children('input, select').attr('disabled', 'disabled');
+                            $('div#regular-form').children('input, select').removeAttr('disabled');
                         });
                         $('input#oneday').click(function(){
                             $('input.regular-active').attr('disabled', 'disabled').removeClass('error');
@@ -74,6 +76,8 @@
                             $('div#regular-form').addClass('hidden').prev().removeClass('hidden');
                             $('a.add.date').removeClass('regular').addClass('oneday');
                             $('div.date:not(#oneday-form):not(#regular-form)').remove();
+                            $('div#regular-form').children('input, select').attr('disabled', 'disabled');
+                            $('div#oneday-form').children('input, select').removeAttr('disabled');
                         });
                     </script>
                     <div class="form-group join category date" id="oneday-form">
