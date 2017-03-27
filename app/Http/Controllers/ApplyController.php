@@ -5,12 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\UploadedFile;
-
 use App\Http\Requests\MasterApplyRequest;
 use App\Http\Requests\MasterCheckRequest;
 use App\Http\Requests\LessonApplyRequest;
 use App\Http\Requests\PlayApplyRequest;
-
 use App\Master_applies; 
 use App\Master_applycategory;
 use App\Master_applydate;
@@ -244,17 +242,17 @@ class ApplyController extends Controller
                     for( $i=$key_min; $i<= $key_max; $i++ ) {
                     // $total = $request->input('howmany_total');
                     // for( $i=0; $i<$total; $i++ ) {
-                        if( array_key_exists( $i, $date ) ) {
-                            if( $date[$i] ) {
-                                $schedule->sub_schedule = $k;
+                        // if( array_key_exists( $i, $date ) ) {
+                        //     if( $date[$i] ) {
+                                $schedule->sub_schedule = $i+1;
                                 $schedule->date = $date[$i];
                                 $schedule->start_time = $start_h[$i] . ':' . $start_m[$i]*5;
                                 $schedule->end_time = $end_h[$i] . ':' . $end_m[$i]*5;
                                 $schedule->apply_id = $lesson->id;
                                 $schedule->save();
-                                $k++;
-                            }
-                        }
+                                // $k++;
+                        //     }
+                        // }
                     }
                 } else {
                     $schedule->sub_schedule = 1;
