@@ -46,7 +46,7 @@
                     <input type="hidden" name="master_name" value="{{ $name }}" readonly/>
                     <div class="form-group join category">
                         <label for="location">장소<span class="required">*</span></label>
-                        <input type="text" id="sample6_postcode" name="postcode" placeholder="우편번호">
+                        <input type="text" id="sample6_postcode" name="postcode" placeholder="우편번호" readonly class="required">
                         <input type="button" name="btn" onclick="sample6_execDaumPostcode()" value="주소 검색"><br>
                         <input type="text" name="location" id="sample6_address" placeholder="주소" class="required detail">
                     </div>
@@ -56,7 +56,7 @@
                         <label for="oneday">원데이</label>
                         <input type="radio" id="regular" name="class" value="정규" class="required"/>
                         <label for="regular">정규</label>
-                        <span class="detail">주 <input type="text" name="howmany_week" class="small digits regular-active" disabled/> 회 / 총 <input type="text" name="howmany_total" class="small regular-active digits" disabled/> 회</span>
+                        <span class="detail">주 <input type="text" name="howmany_week" class="small required digits regular-active" disabled/> 회 / 총 <input type="text" name="howmany_total" class="small regular-active required digits" disabled/> 회</span>
                         <a class="edit-plan btn hidden">일정편집</a>
                     </div>
                     <script>
@@ -68,7 +68,8 @@
                             $('div.date:not(#oneday-form):not(#regular-form)').remove();
                         });
                         $('input#oneday').click(function(){
-                            $('input.regular-active').attr('disabled', 'disabled');
+                            $('input.regular-active').attr('disabled', 'disabled').removeClass('error');
+                            $(this).parent().find('span.error').remove();
                             $('a.edit-plan').addClass('hidden');
                             $('div#regular-form').addClass('hidden').prev().removeClass('hidden');
                             $('a.add.date').removeClass('regular').addClass('oneday');
@@ -81,28 +82,28 @@
                         <input type="text" id="oneday-picker1" name="date1[]" class="required" readonly>
                         <label for="oneday-picker1" class="btn"><i class="fa fa-calendar" aria-hidden="true"></i></label>
                         <strong class="label">시작시간</strong>
-                        <select name="start-hour1[]">
-                            <option value="" selected>시</option>
+                        <select name="start-hour1[]" class="required">
+                            <option disabled selected value>시</option>
                             @for($i=0;$i<24;$i++)
                                 <option value="{{$i}}">{{ $i . '시' }}</option>
                             @endfor
                         </select>
-                        <select name="start-minute1[]">
-                            <option value="" selected>분</option>
+                        <select name="start-minute1[]" class="required">
+                            <option disabled selected value>분</option>
                             @for($i=0;$i<=11;$i++)
                                 <option value="{{$i}}">{{ $i*5 . '분' }}</option>
                             @endfor
                         </select>
                         <span>　~　</span>
                         <strong class="label">종료시간</strong>
-                        <select name="end-hour1[]">
-                            <option value="" selected>시</option>
+                        <select name="end-hour1[]" class="required">
+                            <option disabled selected value>시</option>
                             @for($i=0;$i<24;$i++)
                                 <option value="{{$i}}">{{ $i . '시' }}</option>
                             @endfor
                         </select>
-                        <select name="end-minute1[]">
-                            <option value="" selected>분</option>
+                        <select name="end-minute1[]" class="required">
+                            <option disabled selected value>분</option>
                             @for($i=0;$i<=11;$i++)
                                 <option value="{{$i}}">{{ $i*5 . '분' }}</option>
                             @endfor
@@ -115,28 +116,28 @@
                             <input type="text" id="regular-picker1" name="date1[]" class="required" readonly>
                             <label for="regular-picker1" class="btn"><i class="fa fa-calendar" aria-hidden="true"></i></label>
                             <strong class="label">시작시간</strong>
-                            <select name="start-hour1[]">
-                                <option value="" selected>시</option>
+                            <select name="start-hour1[]" class="required">
+                                <option value disabled selected>시</option>
                                 @for($i=0;$i<24;$i++)
                                     <option value="{{$i}}">{{ $i . '시' }}</option>
                                 @endfor
                             </select>
-                            <select name="start-minute1[]">
-                                <option value="" selected>분</option>
+                            <select name="start-minute1[]" class="required">
+                                <option value disabled selected>분</option>
                                 @for($i=0;$i<=11;$i++)
                                     <option value="{{$i}}">{{ $i*5 . '분' }}</option>
                                 @endfor
                             </select>
                             <span>　~　</span>
                             <strong class="label">종료시간</strong>
-                            <select name="end-hour1[]">
-                                <option value="" selected>시</option>
+                            <select name="end-hour1[]" class="required">
+                                <option value disabled selected>시</option>
                                 @for($i=0;$i<24;$i++)
                                     <option value="{{$i}}">{{ $i . '시' }}</option>
                                 @endfor
                             </select>
-                            <select name="end-minute1[]">
-                                <option value="" selected>분</option>
+                            <select name="end-minute1[]" class="required">
+                                <option value disabled selected>분</option>
                                 @for($i=0;$i<=11;$i++)
                                     <option value="{{$i}}">{{ $i*5 . '분' }}</option>
                                 @endfor
@@ -156,7 +157,7 @@
                         <label for="one-to-one">1:1</label>
                         <input type="radio" id="group" name="howmany" value="그룹" class="required"/>
                         <label for="group">그룹</label>
-                        <span class="detail">최소 <input type="text" name="howmany_min" class="small group-active" disabled/> 명 ~ 최대 <input type="text" name="howmany_max" class="small group-active" disabled/> 명</span>
+                        <span class="detail">최소 <input type="text" name="howmany_min" class="small required digits group-active" disabled/> 명 ~ 최대 <input type="text" name="howmany_max" class="small required digits group-active" disabled/> 명</span>
                     </div>
                     <div class="form-group join">
                         <label for="cost">비용<span class="required">*</span></label>
@@ -188,17 +189,17 @@
                     </div>
                     <div class="form-group join career">
                         <label for="lesson-intro">레슨 소개<span class="required">*</span></label>
-                        <textarea id="lesson-intro" name="lesson-intro" maxlength="700" placeholder="레슨 진행 과정, 이런 사람에게 추천 등 레슨에 대해 자유롭게 소개해주세요. 상세할수록 수강생 모집에 도움이 됩니다." class="required"/></textarea>
+                        <textarea id="lesson-intro" name="lesson-intro" maxlength="700" placeholder="레슨 진행 과정, 이런 사람에게 추천 등 레슨에 대해 자유롭게 소개해주세요. 상세할수록 수강생 모집에 도움이 됩니다." class="required"></textarea>
                         <a class="example" href="#">예시 보기</a>
                         <span class="length">최대 700자</span>
                     </div>
                     <div class="form-group join career">
                         <label for="lesson-goal">목표<span class="required">*</span></label>
-                        <textarea id="lesson-goal" name="lesson-goal" maxlength="700" placeholder="레슨을 통해 무엇을 배울 수 있는 지 입력해주세요." class="required"/></textarea>
+                        <textarea id="lesson-goal" name="lesson-goal" maxlength="700" placeholder="레슨을 통해 무엇을 배울 수 있는 지 입력해주세요." class="required"></textarea>
                     </div>
                     <div class="form-group join career">
                         <label for="curriculum">커리큘럼<span class="required">*</span></label>
-                        <textarea id="curriculum" name="curriculum" maxlength="700" placeholder="레슨 과정별 소요시간 또는 주차별 과정을 입력해주세요." class="required"/></textarea>
+                        <textarea id="curriculum" name="curriculum" maxlength="700" placeholder="레슨 과정별 소요시간 또는 주차별 과정을 입력해주세요." class="required"></textarea>
                     </div>
                     <div class="form-group join">
                         <label for="required">수강요건</label>
@@ -225,7 +226,7 @@
                     <div class="form-group join category">
                         <label for="lesson-tag">태그<span class="required">*</span></label>
                         <input type="text" id="lesson-tag" name="inputTag" class="very-long" placeholder="#레슨 주제_자동_태그"/>
-                        <textarea class="tag_result" name="lesson-tag" class="required" readonly></textarea>
+                        <textarea class="tag_result required" name="lesson-tag" readonly></textarea>
                     </div>
                     <script>
                         $('input#lesson-tag').on('keypress', function(e){
@@ -285,26 +286,23 @@
                         <span name="class" class="result"></span>
                         <span class="result"> : 주 </span><span name="howmany_week"></span><span class="result"> 회 / 총 </span><span name="howmany_total"></span><span class="result"> 회</span>
                     </div>
-                    <div class="form-group join category" name="oneday">
+                    <div class="form-group join career" name="oneday">
                         <label for="date">일정<span class="required">*</span></label>
                         <span name="date1[]" class="result"></span>
-                        <span name="start-hour1[]" class="result"></span><span class="result">시</span>
-                        <span name="start-minute1[]" class="result"></span><span class="result">분</span>
-                        <span class="result">　~　</span>
-                        <span name="end-hour1[]" class="result"></span><span class="result">시</span>
-                        <span name="end-minute1[]" class="result"></span><span class="result">분</span>
+                        <span name="start-hour1[]" class="result"></span>
+                        <span name="start-minute1[]" class="result"></span>
+                        <span name="end-hour1[]" class="result"></span>
+                        <span name="end-minute1[]" class="result"></span>
                         <span name="date2[]" class="result"></span>
-                        <span name="start-hour2[]" class="result"></span><span class="result">시</span>
-                        <span name="start-minute2[]" class="result"></span><span class="result">분</span>
-                        <span class="result">　~　</span>
-                        <span name="end-hour2[]" class="result"></span><span class="result">시</span>
-                        <span name="end-minute2[]" class="result"></span><span class="result">분</span>
+                        <span name="start-hour2[]" class="result"></span>
+                        <span name="start-minute2[]" class="result"></span>
+                        <span name="end-hour2[]" class="result"></span>
+                        <span name="end-minute2[]" class="result"></span>
                         <span name="date3[]" class="result"></span>
-                        <span name="start-hour3[]" class="result"></span><span class="result">시</span>
-                        <span name="start-minute3[]" class="result"></span><span class="result">분</span>
-                        <span class="result">　~　</span>
-                        <span name="end-hour3[]" class="result"></span><span class="result">시</span>
-                        <span name="end-minute3[]" class="result"></span><span class="result">분</span>
+                        <span name="start-hour3[]" class="result"></span>
+                        <span name="start-minute3[]" class="result"></span>
+                        <span name="end-hour3[]" class="result"></span>
+                        <span name="end-minute3[]" class="result"></span>
                     </div>
                     <div class="form-group join">
                         <label for="howmany">인원<span class="required">*</span></label>

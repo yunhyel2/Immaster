@@ -46,9 +46,9 @@
                     <input type="hidden" name="master_name" value="{{ $name }}" readonly/>
                     <div class="form-group join category">
                         <label for="location">장소<span class="required">*</span></label>
-                        <input type="text" id="sample6_postcode" name="postcode" placeholder="우편번호">
-                        <input type="button" name="btn" onclick="sample6_execDaumPostcode()" value="주소 검색"><br>
-                        <input type="text" name="location" id="sample6_address" placeholder="주소" class="required detail">
+                        <input type="text" id="sample6_postcode" name="postcode" placeholder="우편번호" class="required" readonly/>
+                        <input type="button" name="btn" onclick="sample6_execDaumPostcode()" value="주소 검색"/><br>
+                        <input type="text" name="location" id="sample6_address" placeholder="주소" class="required detail"/>
                     </div>
                     <div class="form-group join category date" id="oneday-form">
                         <label for="date1[]" name="date-label">일정<span class="required">*</span></label>
@@ -56,28 +56,28 @@
                         <input type="text" id="oneday-picker1" name="date1[]" class="required" readonly>
                         <label for="oneday-picker1" class="btn"><i class="fa fa-calendar" aria-hidden="true"></i></label>
                         <strong class="label">시작시간</strong>
-                        <select name="start-hour1[]">
-                            <option value="" selected>시</option>
+                        <select name="start-hour1[]" class="required">
+                            <option value disabled selected>시</option>
                             @for($i=0;$i<24;$i++)
                                 <option value="{{$i}}">{{ $i . '시' }}</option>
                             @endfor
                         </select>
-                        <select name="start-minute1[]">
-                            <option value="" selected>분</option>
+                        <select name="start-minute1[]" class="required">
+                            <option value disabled selected>분</option>
                             @for($i=0;$i<=11;$i++)
                                 <option value="{{$i}}">{{ $i*5 . '분' }}</option>
                             @endfor
                         </select>
                         <span>　~　</span>
                         <strong class="label">종료시간</strong>
-                        <select name="end-hour1[]">
-                            <option value="" selected>시</option>
+                        <select name="end-hour1[]" class="required">
+                            <option value disabled selected>시</option>
                             @for($i=0;$i<24;$i++)
                                 <option value="{{$i}}">{{ $i . '시' }}</option>
                             @endfor
                         </select>
-                        <select name="end-minute1[]">
-                            <option value="" selected>분</option>
+                        <select name="end-minute1[]" class="required">
+                            <option value disabled selected>분</option>
                             @for($i=0;$i<=11;$i++)
                                 <option value="{{$i}}">{{ $i*5 . '분' }}</option>
                             @endfor
@@ -141,7 +141,7 @@
                     <div class="form-group join category">
                         <label for="play-tag">태그<span class="required">*</span></label>
                         <input type="text" id="play-tag" name="inputTag" class="very-long" placeholder="#PLAY 주제_자동_태그"/>
-                        <textarea class="tag_result" name="play-tag" class="required" readonly></textarea>
+                        <textarea class="tag_result required" name="play-tag" readonly></textarea>
                     </div>
                     <script>
                         $('input#play-tag').on('keypress', function(e){
@@ -154,6 +154,8 @@
                                 if( $tag != '#' && jQuery.inArray( $data, $arr ) == -1 ){
                                     $(this).next().append($tag);
                                     $result = '';
+                                    $(this).next().removeClass('error').addClass('valid');
+                                    $(this).parent().children('span.error').html('').addClass('valid');
                                 };
                                 if( $arr.length > 10 ){
                                     $(this).attr('disabled', 'disabled');
@@ -198,7 +200,11 @@
                     </div>
                     <div class="form-group join category" name="datepicker">
                         <label for="date">일정<span class="required">*</span></label>
-                        <span name="date[]" class="result"></span>
+                        <span name="date1[]" class="result"></span>
+                        <span name="start-hour1[]" class="result"></span>
+                        <span name="start-minute1[]" class="result"></span>
+                        <span name="end-hour1[]" class="result"></span>
+                        <span name="end-minute1[]" class="result"></span>
                     </div>
                     <div class="form-group join">
                         <label for="howmany">인원<span class="required">*</span></label>
@@ -301,7 +307,11 @@
                     document.getElementById('sample6_address').value = fullAddr;
 
                     // 커서를 상세주소 필드로 이동한다.
+                    if( $('#sample6_postcode').hasClass('error') ){
+                        $('#sample6_postcode').removeClass('error').addClass('valid');
+                    };
                     document.getElementById('sample6_address').focus();
+                    $('#sample6_postcode').parent().children('span.error').html('').addClass('valid');
                 }
             }).open();
         }

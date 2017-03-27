@@ -23,6 +23,7 @@
                         
                         //FinalCheck
                         $formData = $('form.validate').serializeArray();
+                        console.log($formData);
                         $.each( $formData, function(i, data){
                             if( i == 0 ){
                             }else{
@@ -40,10 +41,20 @@
                                         $('div#final-step span[name="'+data.name+'"]').parent().append('<span class="result">'+data.value+'</span><span class="result"> > </span>');
                                     }else{
                                         $('div#final-step span[name="'+data.name+'"]').parent().append('<span class="result"> '+data.value+'</span>');
-                                        if( data.name == 'date2[]' || data.name == 'location2[]' ){
-                                            $('div#final-step span[name="'+data.name+'"]').parent().append('<span class="result"> / </span>');
-                                        }else if( data.name == 'category-detail[]' ){
+                                        if( data.name == 'category-detail[]' ){
                                             $('div#final-step span[name="'+data.name+'"]').parent().append('<span class="result"><br/></span>');
+                                        }else if( data.name.indexOf('hour') != -1 ){
+                                            $('div#final-step span[name="'+data.name+'"]').parent().append('<span class="result"> 시 </span>');
+                                        }else if( data.name.indexOf('minute') != -1 ){
+                                            if( data.name.indexOf('start') != -1 ){
+                                                $('div#final-step span[name="'+data.name+'"]').parent().append('<span class="result"> 분 ~ </span>');
+                                            }else if( data.name.indexOf('end') != -1 ){
+                                                $('div#final-step span[name="'+data.name+'"]').parent().append('<span class="result"> 분 , </span>');
+                                            }else{
+                                                $('div#final-step span[name="'+data.name+'"]').parent().append('<span class="result"> 분 </span>');
+                                            }
+                                        }else{
+                                            $('div#final-step span[name="'+data.name+'"]').parent().append('<span class="result"> / </span>');
                                         }
                                     }
                                 }else{
@@ -54,8 +65,11 @@
                     }
                 }
             };
-        }, errorPlacement: function(error, element) {
-            error.appendTo( element.parent("td").next("td") );
+        }, 
+        errorClass: 'error',
+        errorElement: 'span',
+        errorPlacement: function(error, element) {
+            error.insertAfter( element.closest('div.form-group').children(':last-child') );
         }
     });
 
@@ -138,6 +152,7 @@
         if( $count == '' ){
             alert('입력해주세요!');
         }else{
+            $('div.date:not(#oneday-form):not(#regular-form)').remove();
             $('div#regular-form span.add-items').remove();
             $org_content = $('div#regular-form').find('span[name="regular-count"]').eq(0).html();
             for($i=1;$i<$count;$i++){
@@ -146,10 +161,10 @@
                 $('div#regular-form').append('<span name="regular-count" class="add-items" style="clear:both;">'+$content+'</span>');
                 $('div#regular-form').find('span:last-child strong').remove();
             }
-            $('div.date').animate({
+            $('div.date:not(#oneday-form)').animate({
                 height : 60*$count
             });
-        }
+        };
     });
 
 //MODAL
