@@ -147,7 +147,7 @@
                     </div>
                     <div class="form-group join">
                         <label for="date" name="date-label">요일 및 시간<span class="required">*</span></label>
-                        <select id="date" name="date[]" class="required">
+                        <select id="date" name="master-date[]" class="required">
                             <option value=''>선택하세요</option> 
                             <option value='월요일'>월요일</option> 
                             <option value='화요일'>화요일</option> 
@@ -157,7 +157,7 @@
                             <option value='토요일'>토요일</option> 
                             <option value='일요일'>일요일</option> 
                         </select>
-                        <select name="date2[]" class="required"> 
+                        <select name="master-date2[]" class="required"> 
                             <option value="">선택하세요</option>
                             <option value='오전'>오전</option>
                             <option value='오후'>오후</option>  
@@ -234,7 +234,7 @@
                     <div class="form-group join">
                         <label>통장사본<span class="required">*</span></label>
                         <span class="file"><i class="fa fa-paperclip" aria-hidden="true"></i>첨부</span>
-                        <input type="file" id="bankbook" name="bankbook" class="required"/>
+                        <input type="file" id="bankbook" name="bankbook" class="required" required/>
                     </div>
                 </div>
                 <h2>갤러리</h2>
@@ -301,8 +301,8 @@
                     </div>
                     <div class="form-group join">
                         <label for="date">요일 및 시간<span class="required">*</span></label>
-                        <span name="date[]" class="result"></span>
-                        <span name="date2[]" class="result"></span>
+                        <span name="master-date[]" class="result"></span>
+                        <span name="master-date2[]" class="result"></span>
                     </div>
                 </div>
                 <h2>Career</h2>
