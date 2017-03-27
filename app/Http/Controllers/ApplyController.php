@@ -236,13 +236,25 @@ class ApplyController extends Controller
                 $end_m = $request->input('end-minute' . $j);
 
                 if( $request->input('class') == '정규' ) { 
-                    for( $i=1; $i<count($date); $i++ ) {
-                        $schedule->sub_schedule = $i;
-                        $schedule->date = $date[$i];
-                        $schedule->start_time = $start_h[$i] . ':' . $start_m[$i]*5;
-                        $schedule->end_time = $end_h[$i] . ':' . $end_m[$i]*5;
-                        $schedule->apply_id = $lesson->id;
-                        $schedule->save();
+                    // $key = array_keys( $date, end($date));
+                    $keys = array_keys($date);
+                    $key_min = min($keys);
+                    $key_max = max($keys);
+                    $k = 1;
+                    for( $i=$key_min; $i<= $key_max; $i++ ) {
+                    // $total = $request->input('howmany_total');
+                    // for( $i=0; $i<$total; $i++ ) {
+                        if( array_key_exists( $i, $date ) ) {
+                            if( $date[$i] ) {
+                                $schedule->sub_schedule = $k;
+                                $schedule->date = $date[$i];
+                                $schedule->start_time = $start_h[$i] . ':' . $start_m[$i]*5;
+                                $schedule->end_time = $end_h[$i] . ':' . $end_m[$i]*5;
+                                $schedule->apply_id = $lesson->id;
+                                $schedule->save();
+                                $k++;
+                            }
+                        }
                     }
                 } else {
                     $schedule->sub_schedule = 1;
@@ -295,6 +307,25 @@ class ApplyController extends Controller
             $apply->image = 'https://s3.ap-northeast-2.amazonaws.com/immaster/' . $store_image;
             $apply->apply_id = $play->id;
             $apply->save();
+        }
+
+        // 일정 최대 3개까지 가능! 
+        for( $j=1; $j<4; $j++ ) {
+            $date = $request->input('date'.$j);
+            if( $date ) {
+                $schedule = new Play_applyschedule;
+                $schedule->schedule = $j;
+                $start_h = $request->input('start-hour' . $j);
+                $start_m = $request->input('start-minute' . $j);
+                $end_h = $request->input('end-hour' . $j);
+                $end_m = $request->input('end-minute' . $j);
+
+                $schedule->date = $date[0];
+                $schedule->start_time = $start_h[0] . ':' . $start_m[0]*5;
+                $schedule->end_time = $end_h[0] . ':' . $end_m[0]*5;
+                $schedule->apply_id = $play->id;
+                $schedule->save();
+            } 
         }
 
         return redirect('/play-complete');
