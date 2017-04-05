@@ -16,7 +16,7 @@ class CreateLessonAppliesTable extends Migration
         Schema::create('lesson_applies', function (Blueprint $table) {
             $table->increments('id');
             $table->string('category');
-            $table->string('category-detail');
+            $table->string('category_detail');
             $table->string('postcode');
             $table->string('location');
             $table->string('class');
@@ -27,14 +27,14 @@ class CreateLessonAppliesTable extends Migration
             $table->integer('howmany_max')->unsigned()->nullable();
             $table->integer('cost')->unsigned();
 
-            $table->string('lesson-name');
-            $table->string('lesson-intro');
-            $table->string('lesson-goal');
+            $table->string('lesson_name');
+            $table->string('lesson_intro');
+            $table->string('lesson_goal');
             $table->string('curriculum');
             $table->string('required')->nullable();
-            $table->string('lesson-ready')->nullable();
-            $table->string('lesson-etc')->nullable();
-            $table->string('lesson-tag');
+            $table->string('lesson_ready')->nullable();
+            $table->string('lesson_etc')->nullable();
+            $table->string('lesson_tag');
 
             $table->integer('master_id');
             $table->foreign('master_id')->references('id')->on('server_userprofile');

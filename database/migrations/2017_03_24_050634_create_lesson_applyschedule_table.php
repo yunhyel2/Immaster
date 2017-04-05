@@ -16,6 +16,7 @@ class CreateLessonApplyscheduleTable extends Migration
         Schema::create('lesson_applyschedule', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('schedule')->unsigned();
+            $table->integer('sub_schedule')->unsigned();
             $table->string('date');
             $table->string('start_time');
             $table->string('end_time');
