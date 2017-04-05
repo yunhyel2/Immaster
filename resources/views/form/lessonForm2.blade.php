@@ -227,31 +227,12 @@
                         <label for="car">차량지원</label>
                         <input type="text" id="lesson-etc" name="lesson-etc[]" class="detail very-long" placeholder="기타 포함사항이 있다면 적어주세요."/>
                     </div>
-                    <div class="form-group join category">
+                    <div class="form-group join career">
                         <label for="lesson-tag">태그<span class="required">*</span></label>
                         <input type="text" id="lesson-tag" name="inputTag" class="very-long" placeholder="#레슨 주제_자동_태그"/>
                         <textarea class="tag_result required" name="lesson-tag" readonly></textarea>
+                        <span class="tag_result"></span>
                     </div>
-                    <script>
-                        $('input#lesson-tag').on('keypress', function(e){
-                            if( e.keyCode == 13 || e.keyCode == 188 ){
-                                e.preventDefault();
-                                var data = $(this).val();
-                                $data = data.trim().replace(/ /g,'_').replace(/[^(가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z0-9|_)]/gi,'');
-                                $tag = '#'+$data;
-                                $arr = $('textarea.tag_result').text().split('#');
-                                if( $tag != '#' && jQuery.inArray( $data, $arr ) == -1 ){
-                                    $(this).next().append($tag);
-                                    $result = '';
-                                };
-                                if( $arr.length > 10 ){
-                                    $(this).attr('disabled', 'disabled');
-                                }else{
-                                    $(this).val('').focus();
-                                }
-                            };
-                        });
-                    </script>
                 </div>
                 <h2>갤러리</h2>
                 <p class="notice warning">※ 저화질, 왜곡된 사진, 또는 저작권에 문제가 있는 이미지 파일은 올리지 않도록 주의해주세요.</p>
@@ -422,7 +403,11 @@
                     document.getElementById('sample6_address').value = fullAddr;
 
                     // 커서를 상세주소 필드로 이동한다.
+                    if( $('#sample6_postcode').hasClass('error') ){
+                        $('#sample6_postcode, #sample6_address').removeClass('error').addClass('valid');
+                    };
                     document.getElementById('sample6_address').focus();
+                    $('#sample6_postcode').parent().children('span.error').html('').addClass('valid');
                 }
             }).open();
         }

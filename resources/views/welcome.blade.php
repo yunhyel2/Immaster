@@ -115,9 +115,9 @@
             <h1 class="white">WORLD'S BEST</h1>
             <h1 class="orange">MASTER CONNECTING</h1>
             <h1 class="white">PLATFORM</h1>
-            <a href="http://naver.me/x7TW8x0K" id="master_btn" class="btn btn-default" target="_blank">마스터 등록</a>
-            <a id="lesson_btn" href="#login_lesson" name="modal" class="btn btn-default">레슨 등록</a>
-            <a id="play_btn"  href="#login_play" name="modal" class="btn btn-default" target="_blank" onclick="button_event2();">PLAY 등록</a>
+            <a href="{{ url('/master-apply') }}" id="master_btn" class="btn btn-default">마스터 등록</a>
+            <a id="lesson_btn" href="{{ url('lesson-apply') }}" class="btn btn-default">레슨 등록</a>
+            <a id="play_btn"  href="{{ url('play-apply') }}" class="btn btn-default">PLAY 등록</a>
             </div>
         </div><!--비쥬얼텍스트-->
     </div>
