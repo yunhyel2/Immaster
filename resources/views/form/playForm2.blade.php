@@ -96,7 +96,7 @@
                     </div>
                     <div class="form-group join">
                         <label for="cost">비용<span class="required">*</span></label>
-                        <input type="text" id="cost" name="cost" placeholder="숫자만 입력하세요" class="required digits"/>
+                        <input type="text" id="cost" name="cost" placeholder="숫자만 입력하세요" maxlength="10" class="required digits"/>
                         <span style="color:#aaa">원</span>
                     </div>
                 </div>
