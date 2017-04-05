@@ -3,9 +3,9 @@
 @section('content')
     <div class="page form">
         <div class="complete">
-            @if( Request::segment(1) == 'master-join3' )
+            @if( Request::segment(1) == 'master-complete' )
                 <h1 class="title">마스터 등록이 완료되었습니다.</h1>
-            @elseif( Request::segment(1) == 'lesson-join3' )
+            @elseif( Request::segment(1) == 'lesson-complete' )
                 <h1 class="title">레슨 등록이 완료되었습니다.</h1>
             @else
                 <h1 class="title">PLAY 등록이 완료되었습니다.</h1>

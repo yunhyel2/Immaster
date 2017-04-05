@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMasterappliesTable extends Migration
+class CreateMasterAppliesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateMasterappliesTable extends Migration
      */
     public function up()
     {
-        Schema::create('masterapplies', function (Blueprint $table) {
+        Schema::create('master_applies', function (Blueprint $table) {
             $table->increments('id');
             $table->string('email');
             $table->string('name');
@@ -36,7 +36,7 @@ class CreateMasterappliesTable extends Migration
             $table->string('sale');
             $table->string('sale_docu')->nullable();
             $table->string('sale_name')->nullable();
-            $table->string('bankbook_docu')->nullable();
+            $table->string('bankbook_docu');
             $table->string('bankbook_name');
 
             $table->string('profile_image');

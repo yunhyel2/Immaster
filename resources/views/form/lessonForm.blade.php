@@ -2,16 +2,16 @@
 
 @section('content')
     <div class="page form mastercheck">
-        @if( Request::segment(1) == 'lesson-join' )
+        @if( Request::segment(1) == 'lesson-apply' )
         <h1>레슨 등록</h1>
         @else
         <h1>PLAY 등록</h1>
         @endif
-        <form method="POST" name="master-check" action="{{ url('master-check') }}">
+        <form method="POST" name="master-check" action="{{ url('class-create') }}">
         {{ csrf_field() }}
             <p><strong>마스터 등록 당시 입력한 이메일과 이름을 입력하세요.</strong></p>
             <div class="mastercheck">
-                <input type="hidden" name="status" value="{{ Request::segment(1) == 'lesson-join' ? 'lesson' : 'play' }}" readonly>
+                <input type="hidden" name="status" value="{{ Request::segment(1) == 'lesson-apply' ? 'lesson' : 'play' }}" readonly>
                 <div class="form-group">
                     <label for="email">이메일(아이디)</label>
                     <input type="email" id="email" name="email" class="required email" placeholder="aaaa@example.com"/>
