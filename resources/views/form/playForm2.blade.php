@@ -138,33 +138,12 @@
                         <label for="car">차량지원</label>
                         <input type="text" id="play-etc" name="play-etc[]" class="detail very-long" placeholder="기타 포함사항이 있다면 적어주세요."/>
                     </div>
-                    <div class="form-group join category">
+                    <div class="form-group join career">
                         <label for="play-tag">태그<span class="required">*</span></label>
                         <input type="text" id="play-tag" name="inputTag" class="very-long" placeholder="#PLAY 주제_자동_태그"/>
                         <textarea class="tag_result required" name="play-tag" readonly></textarea>
+                        <span class="tag_result"></span>
                     </div>
-                    <script>
-                        $('input#play-tag').on('keypress', function(e){
-                            if( e.keyCode == 13 || e.keyCode == 188 ){
-                                e.preventDefault();
-                                var data = $(this).val();
-                                $data = data.trim().replace(/ /g,'_').replace(/[^(가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z0-9|_)]/gi,'');
-                                $tag = '#'+$data;
-                                $arr = $('textarea.tag_result').text().split('#');
-                                if( $tag != '#' && jQuery.inArray( $data, $arr ) == -1 ){
-                                    $(this).next().append($tag);
-                                    $result = '';
-                                    $(this).next().removeClass('error').addClass('valid');
-                                    $(this).parent().children('span.error').html('').addClass('valid');
-                                };
-                                if( $arr.length > 10 ){
-                                    $(this).attr('disabled', 'disabled');
-                                }else{
-                                    $(this).val('').focus();
-                                }
-                            };
-                        });
-                    </script>
                 </div>
                 <h2>갤러리</h2>
                 <p class="notice warning">※ 저화질, 왜곡된 사진, 또는 저작권에 문제가 있는 이미지 파일은 올리지 않도록 주의해주세요.</p>
@@ -308,7 +287,7 @@
 
                     // 커서를 상세주소 필드로 이동한다.
                     if( $('#sample6_postcode').hasClass('error') ){
-                        $('#sample6_postcode').removeClass('error').addClass('valid');
+                        $('#sample6_postcode, #sample6_address').removeClass('error').addClass('valid');
                     };
                     document.getElementById('sample6_address').focus();
                     $('#sample6_postcode').parent().children('span.error').html('').addClass('valid');

@@ -23,7 +23,6 @@
                         
                         //FinalCheck
                         $formData = $('form.validate').serializeArray();
-                        console.log($formData);
                         $.each( $formData, function(i, data){
                             if( i == 0 ){
                             }else{
@@ -200,6 +199,44 @@
             changeYear: true,
             yearSuffix: '년',
             minDate: 14,
-            maxDate: 56
+            maxDate: 56,
+            onSelect: function(){ 
+                if( $(this).hasClass('error') ){
+                    $(this).removeClass('error').addClass('valid');
+                    var id = $(this).attr('id');
+                    $('span#'+id+'-error').html('').addClass('valid');
+                };
+            }
         });
+    });
+//Tag
+    $('input#lesson-tag, input#play-tag').on('keypress', function(e){
+        if( e.keyCode == 13 || e.keyCode == 188 ){
+            e.preventDefault();
+            var data = $(this).val();
+            $data = data.trim().replace(/ /g,'_').replace(/[^(가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z0-9|_)]/gi,'');
+            $tag = '#'+$data;
+            $arr = $('textarea.tag_result').text().split('#');
+            if( $tag != '#' && jQuery.inArray( $data, $arr ) == -1 ){
+                $(this).next().append($tag);
+                $(this).next().next('span.tag_result').append('<b>'+$tag+'</b>');
+                $result = '';
+            };
+            $(this).val('').focus();
+        };
+    });
+    $('span').on('click', 'b' , function(){
+        var delTarget = $(this).html();
+        var compare = delTarget.replace('#', '');
+        var orgText = $('textarea.tag_result').html();
+        var dataArr = orgText.split('#');
+        dataArr.splice(0,1);
+        dataArr.splice(dataArr.indexOf(compare),1);
+        console.log(dataArr);
+        $(this).remove();
+        $('textarea.tag_result').html('');
+        for( var $i=0;$i<dataArr.length;$i++ ){
+            $tag = '#'+dataArr[$i];
+            $('textarea.tag_result').append($tag);
+        };
     });

@@ -388,11 +388,22 @@ div.page.form div.form-group.join input[type="checkbox"] {
   margin-left: 10px;
 }
 
-div.page.form div.form-group.join textarea.tag_result {
+div.page.form div.form-group.join span.tag_result {
   position: relative;
-  top: -6px;
-  height: 25px;
+  display: inline-block;
+  width: 500px;
+  height: 80px;
   font-weight: bold;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+div.page.form div.form-group.join span.tag_result b {
+  background: orange;
+  margin: 1px 2px;
+  padding: 2px 3px;
+  border-radius: 3px;
+  cursor: pointer;
 }
 
 div.page.form div.form-group input[type="text"], div.page.form div.form-group input[type="email"], div.page.form div.form-group select, div.page.form div.form-group span.file_name {
@@ -436,7 +447,7 @@ div.page.form div.form-group input[type="text"].very-long, div.page.form div.for
   width: 400px;
 }
 
-div.page.form div.form-group input[type="file"] {
+div.page.form div.form-group input[type="file"], div.page.form div.form-group textarea.tag_result {
   width: 0px;
   overflow: hidden;
   opacity: 0;
