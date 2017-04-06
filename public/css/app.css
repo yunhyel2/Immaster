@@ -507,7 +507,7 @@ div.page.form div.form-group.button {
 
 div.page.form div.form-group.button input.btn, div.page.form div.form-group.button a.btn {
   border: none;
-  border-radius: none;
+  border-radius: 0;
   font-size: 12px;
   width: 80px;
   height: 30px;
