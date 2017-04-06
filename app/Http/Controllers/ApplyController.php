@@ -146,8 +146,8 @@ class ApplyController extends Controller
         $category_detail = $request->input('category-detail');
         $location = $request->input('location');
         $location_detail = $request->input('location2');
-        $day = $request->input('date');
-        $time = $request->input('date2');
+        $day = $request->input('master-date');
+        $time = $request->input('master-date2');
 
         for( $i=0; $i<count($category); $i++ ) {
             // $category_id = Server_lessoncategorycode::where('category', $category[$i])->first()->id;
