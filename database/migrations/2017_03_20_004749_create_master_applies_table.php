@@ -41,8 +41,8 @@ class CreateMasterAppliesTable extends Migration
 
             $table->string('profile_image');
             $table->string('profile_name');
-            $table->string('image')->nullable();
-            $table->string('image_name')->nullable();
+            // $table->string('image')->nullable();
+            // $table->string('image_name')->nullable();
             
             $table->timestamps();
         });

@@ -19,4 +19,8 @@ class Master_applies extends Model
     public function dates() {
         return $this->hasMany('App\Master_applydate');
     }
+
+    public function images() {
+        return $this->hasMany('App\Master_applyimages');
+    }
 }

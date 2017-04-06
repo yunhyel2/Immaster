@@ -29,17 +29,14 @@ class MasterApplyRequest extends FormRequest
             'master_name' => 'required',
             'phone' => 'required',
             'gender' => 'required',
-
             'category' => 'required',
             'category-detail' => 'required',
             'location' => 'required',
             'location2' => 'required',
             'master-date' => 'required',
             'master-date2' => 'required',
-
             'intro' => 'required',
             'detail-intro' => 'required',
-            
         ]; 
 
     }
